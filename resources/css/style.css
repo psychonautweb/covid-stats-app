@@ -238,6 +238,7 @@ main {
 
 .country-list ul li:hover {
     border-left: 1px solid #fff;
+    color: #cf9817;
 }
 
 /* SCROLL BAR */

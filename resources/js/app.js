@@ -27,30 +27,106 @@ let recoveredList = [];
 let deathsList = [];
 let datesList = [];
 
-// Get users country code using geolocation API
+// Get users Latitude and Longitude and pass it to Geocoding Api, LocationIq
 
-const API_KEY = 'pk.5dda2a04ec08d2da359b8da73fb99ed8'
+const showCountryCode = (position) => {
+  let latitude = position.coords.latitude;
+  let longitude = position.coords.longitude;
+
+  const apiUrl = `https://eu1.locationiq.com/v1/nearby.php?key=pk.5dda2a04ec08d2da359b8da73fb99ed8&lat=${latitude}&lon=${longitude}`;
+
+  fetch(apiUrl)
+    .then((response) => response.json())
+    .then((data) => {
+      let countryCode = data[0].address.country_code; // extract country code
+      let userCountry;
+      countryList.forEach((country) => {
+        if (country.code == countryCode) {
+          userCountry = country.code; // I used abb here instead of name!
+        }
+      });
+      fetchData(userCountry);
+    });
+};
+
+const getUsersLocation = () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showCountryCode);
+  } else {
+    alert('Geolocation is not supported by this browser.');
+  }
+};
+
+getUsersLocation();
+
 //get https://eu1.locationiq.com/v1/search.php?key=pk.5dda2a04ec08d2da359b8da73fb99ed8&q=serbia&format=json
-// https://eu1.locationiq.com/v1/search.php?key=pk.5dda2a04ec08d2da359b8da73fb99ed8&q=de&format=json
-// this would return json with info about germany ???
+// https://covid-api.mmediagroup.fr/v1/history?ab=DE&status=deaths
+//https://eu1.locationiq.com/v1/nearby.php?key=pk.5dda2a04ec08d2da359b8da73fb99ed8&lat=44.7744753&lon=17.1815871
 
-let countryCode = '//I need to extract country code here using api 1:15:30';
-let userCountry;
-
-countryList.forEach((country) => {
-    if (country.code == countryCode) // if our country list code is same as the one we get from API than that's user country code/name
-})
-
-
-/* ---------------------------------------------- */
 /*                API URL AND KEY                 */
+
+const fetchData = (userCountry) => {
+	appData = [];
+	casesList = [];
+	recoveredList = [];
+	deathsList = [];
+	datesList = [];
+
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  const api_fetch = (country) => {
+     fetch(
+      "https://covid-api.mmediagroup.fr/v1/history?ab=${userCountry}&status=confirmed",
+      options
+    )
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        data.forEach((entry) => {
+			console.log(entry)
+        //   dates.push(entry.Date);
+        //   casesList.push(entry.Cases);
+        });
+      });
+
+     fetch(
+      "https://covid-api.mmediagroup.fr/v1/history?ab=DE&status=deaths",
+      options
+    )
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        data.forEach((entry) => {
+			console.log(entry)
+        //   deathsList.push(Object.values(entry.All.dates));
+        });
+      });
+
+    updateUI();
+  };
+
+  api_fetch();
+}
+
+  fetch(`https://covid-api.mmediagroup.fr/v1/cases?ab=${userCountry}`, options)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      covidData = data;
+      console.log(covidData);
+
+
+    });
+
+
 /* ---------------------------------------------- */
-/*
-fetch(`https://covid19-monitor-pro.p.rapidapi.com/coronavirus/cases_by_days_by_country.php?country=country`, {
-		"method": "GET",
-		"headers": {
-			"x-rapidapi-host": "covid19-monitor-pro.p.rapidapi.com",
-			"x-rapidapi-key": "7e269ec140msh8a5df9cfc21b4b4p1c1e3ejsn9aba26afc6e0"
-		}
-	})
-*/
+/*                     FETCH API                  */
+/* ---------------------------------------------- */
