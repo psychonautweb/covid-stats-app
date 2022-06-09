@@ -51,19 +51,21 @@ const showCountryCode = (position) => {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
 
-  const apiUrl = `https://eu1.locationiq.com/v1/nearby.php?key=pk.5dda2a04ec08d2da359b8da73fb99ed8&lat=${latitude}&lon=${longitude}`;
+  const apiUrl = `https://eu1.locationiq.com/v1/reverse.php?key=pk.5dda2a04ec08d2da359b8da73fb99ed8&lat=${latitude}&lon=${longitude}&format=json`;
 
   fetch(apiUrl)
     .then((response) => response.json())
     .then((data) => {
-      let countryCode = data[0].address.country_code; // extract country code
+      let countryCode = data.address.country_code.toUpperCase(); // extract country code
 
       countryList.forEach((country) => {
         if (country.code == countryCode) {
-          userCountry = country.code; // I used abb here instead of name!
+          userCountryFull = country.name; // I used abb here instead of name!
+          userCountryAbb = countryCode
         }
       });
-      fetchData(userCountry);
+
+      fetchData(userCountryFull, userCountryAbb);
     });
 };
 
@@ -85,25 +87,24 @@ getUsersLocation();
 // https://covid-api.mmediagroup.fr/v1/cases?ab=${country}
 /*                API URL AND KEY                 */
 
-const fetchData = (country) => {
-  userCountry = country;
+const fetchData = (country, code) => {
+  console.log(country + '' + code)
+  userCountry = country; //
   countryNameElement.innerHTML = 'Loading...';
 
   resetList();
 
-  console.log('here1')
-
-  const apiFetch = async (country) => {
+  const apiFetch = async (code) => {
 
     await fetch(
-      `https://covid-api.mmediagroup.fr/v1/history?ab=${country}&status=confirmed`,
+      `https://covid-api.mmediagroup.fr/v1/history?ab=${code}&status=confirmed`,
       options
     )
       .then((res) => {
         return res.json();
       })
       .then((data) => {
-        console.log(data.All.dates)
+        console.log(data)
         valueOfDate = Object.values(data.All.dates)
         dates = Object.keys(data.All.dates)
 
@@ -124,7 +125,7 @@ const fetchData = (country) => {
       console.log('here1')
 
       await fetch(
-        `https://covid-api.mmediagroup.fr/v1/history?ab=${country}&status=deaths`,
+        `https://covid-api.mmediagroup.fr/v1/history?ab=${code}&status=deaths`,
         options
       )
         .then((res) => {
@@ -139,31 +140,38 @@ const fetchData = (country) => {
         });
         
         updateUi();
+
       }
 
-  apiFetch(country)
+  apiFetch(code)
 };
 
 // Update Ui
 
-const updateUi = () => {
-  updateStats()
-  axesLinearChart()
+console.log('here1')
+
+const updateUi = async () => {
+   updateStats()
+   axesLinearChart()
 }
 
 const updateStats = () => {
-  const totalCasesCount = casesList[casesList.length - 1] // ???
-  const newConfirmedCasesCount = totalCasesCount - casesList[casesList.length - 2] /// ???
+
+  console.log(casesList.length)
+  const totalCasesCount = casesList[0] // ???
+  const newConfirmedCasesCount = totalCasesCount - casesList[1] /// ???
 
   const totalDeathsCount = deathsList[deathsList.length - 1]
   const newDeathsCasesCount = totalDeathsCount - deathsList[deathsList - 2]
 
   countryNameElement.innerHTML = userCountry;
   totalCasesElement.innerHTML = totalCasesCount
-  newTotalCasesElement.innerHTML = `+${newConfirmedCasesCount}`
+  newTotalCasesElement.innerHTML = `+${newConfirmedCasesCount} new cases today`
   deathsElement.innerHTML = totalDeathsCount;
   newDeathsElement.innerHTML = `+${newDeathsCasesCount}`
 }
+
+
 
 // format date
 
@@ -179,6 +187,8 @@ function axesLinearChart() {
   if (my_chart) {
     my_chart.destroy();
   }
+
+  console.log(casesList)
 
   my_chart = new Chart(ctx, {
     type: "line",
@@ -233,5 +243,8 @@ function formatDate(dateString) {
 
   return `${date.getDate()} ${monthsNames[date.getMonth()]}`;
 }
+
+
+
 
 

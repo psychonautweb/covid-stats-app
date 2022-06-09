@@ -231,7 +231,7 @@ const createCountryList = () => {
     }
 
     document.getElementById(`${ulListId}`).innerHTML += `
-    <li onclick="fetchData('${country.name}')" id="${country.name}">
+    <li onclick="fetchData('${country.name}', '${country.code}')" id="${country.name}">
 ${country.name}
     </li>
     `;
