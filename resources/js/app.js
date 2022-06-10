@@ -9,9 +9,9 @@ const totalCasesElement = latestReportHelper.querySelector(
 const newTotalCasesElement = latestReportHelper.querySelector(
   '.total-cases .new-value'
 );
-const recoveredElement = latestReportHelper.querySelector('.recovered .value');
-const newRecoveredElement = latestReportHelper.querySelector(
-  '.recovered .new-value'
+const globalCasesElement = latestReportHelper.querySelector('.global .value');
+const globalDeathCasesElement = latestReportHelper.querySelector(
+  '.global .deaths-val'
 );
 const deathsElement = latestReportHelper.querySelector('.deaths .value');
 const newDeathsElement = latestReportHelper.querySelector('.deaths .new-value');
@@ -21,29 +21,36 @@ const ctx = document.getElementById('axes_line_chart').getContext('2d');
 
 //global variables
 
-let appData = [];
+// let appData = [];
 let casesList = [];
-let recoveredList = [];
+let globalListConfirmed = [];
+let globalDeathsConfirmed = [];
 let deathsList = [];
-let datesList = [];
 let formatedDates = [];
+let globalList = [];
+let userCountryFull = ''
+let userCountryAbb = ''
+var dates = []
 
 let userCountry = '';
+
 
 const options = {
   method: 'GET',
   headers: {
     'Content-Type': 'application/json',
   },
+  redirect: 'follow',
 };
 
-
-function resetList () {
-  casesList = []
-  recoveredList = []
-  deathsList = []
-  datesList = []
-  formatedDates = []
+function resetList() {
+  casesList = [];
+  globalList = [];
+  deathsList = [];
+  dates = [];
+  formatedDates = [];
+  globalListConfirmed = []
+  globalDeathsConfirmed = []
 }
 // Get users Latitude and Longitude and pass it to Geocoding Api, LocationIq
 
@@ -61,11 +68,11 @@ const showCountryCode = (position) => {
       countryList.forEach((country) => {
         if (country.code == countryCode) {
           userCountryFull = country.name; // I used abb here instead of name!
-          userCountryAbb = countryCode
+          userCountryAbb = countryCode;
         }
       });
-
       fetchData(userCountryFull, userCountryAbb);
+      //////////
     });
 };
 
@@ -79,135 +86,143 @@ const getUsersLocation = () => {
 
 getUsersLocation();
 
+
+
 //get https://eu1.locationiq.com/v1/search.php?key=pk.5dda2a04ec08d2da359b8da73fb99ed8&q=serbia&format=json
-// https://covid-api.mmediagroup.fr/v1/history?ab=DE&status=deaths
 //https://eu1.locationiq.com/v1/nearby.php?key=pk.5dda2a04ec08d2da359b8da73fb99ed8&lat=44.7744753&lon=17.1815871
 
-// https://covid-api.mmediagroup.fr/v1/history?ab=DE&status=deaths
-// https://covid-api.mmediagroup.fr/v1/cases?ab=${country}
 /*                API URL AND KEY                 */
 
 const fetchData = (country, code) => {
-  console.log(country + '' + code)
+
+  console.log(country + '' + code);
   userCountry = country; //
   countryNameElement.innerHTML = 'Loading...';
 
   resetList();
 
   const apiFetch = async (code) => {
-
     await fetch(
-      `https://covid-api.mmediagroup.fr/v1/history?ab=${code}&status=confirmed`,
+      `https://api.covid19api.com/total/country/${code}/status/confirmed`,
       options
     )
-      .then((res) => {
-        return res.json();
+      .then((response) => {
+        return response.json();
       })
       .then((data) => {
-        console.log(data)
-        valueOfDate = Object.values(data.All.dates)
-        dates = Object.keys(data.All.dates)
-
-        dates.forEach((entry) => {
-          datesList.push(entry);
-
+        data.forEach((entry) => {
+          dates.push(entry.Date);
+          casesList.push(entry.Cases);
         });
-
-        valueOfDate.forEach((entry) => {
-          casesList.push(entry)
-        });
-
-        console.log(datesList)
-        console.log(casesList)
-
       });
 
-      console.log('here1')
-
-      await fetch(
-        `https://covid-api.mmediagroup.fr/v1/history?ab=${code}&status=deaths`,
-        options
-      )
-        .then((res) => {
-          return res.json();
-        })
-        .then((data) => {
-          valueOfDate = Object.values(data.All.dates)
-          valueOfDate.forEach((entry) => {
-            deathsList.push(entry)
-          });
-          
+    await fetch(
+      `https://api.covid19api.com/total/country/${code}/status/deaths`,
+      options
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        data.forEach((entry) => {
+          deathsList.push(entry.Cases);
         });
-        
-        updateUi();
+      });
 
-      }
+    await fetch(`https://api.covid19api.com/summary`, options)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        globalListConfirmed.push(data.Global.TotalConfirmed);
+        globalDeathsConfirmed.push(data.Global.TotalDeaths);
+      });
 
-  apiFetch(code)
+    updateUi();
+  };
+
+  apiFetch(code);
+
 };
+
+
 
 // Update Ui
 
-console.log('here1')
-
-const updateUi = async () => {
-   updateStats()
-   axesLinearChart()
-}
+const updateUi = () => {
+  updateStats();
+  axesLinearChart();
+};
 
 const updateStats = () => {
+  console.log(casesList.length);
 
-  console.log(casesList.length)
-  const totalCasesCount = casesList[0] // ???
-  const newConfirmedCasesCount = totalCasesCount - casesList[1] /// ???
+  const totalCasesCount = casesList[casesList.length - 1]; // ???
+  const newConfirmedCasesCount = totalCasesCount - casesList[casesList.length - 2]; /// ???
 
-  const totalDeathsCount = deathsList[deathsList.length - 1]
-  const newDeathsCasesCount = totalDeathsCount - deathsList[deathsList - 2]
+  const totalDeathsCount = deathsList[deathsList.length - 1];
+  const newDeathsCasesCount =
+    totalDeathsCount - deathsList[deathsList.length - 2];
+
+  const totalGlobalCasesCount = globalListConfirmed;
+  const newGlobalDeathsCasesCount = globalDeathsConfirmed;
+
+  //
 
   countryNameElement.innerHTML = userCountry;
-  totalCasesElement.innerHTML = totalCasesCount
-  newTotalCasesElement.innerHTML = `+${newConfirmedCasesCount} new cases today`
+
+  totalCasesElement.innerHTML = totalCasesCount;
+  newTotalCasesElement.innerHTML = `+${newConfirmedCasesCount} today`;
+
   deathsElement.innerHTML = totalDeathsCount;
-  newDeathsElement.innerHTML = `+${newDeathsCasesCount}`
-}
+  newDeathsElement.innerHTML = `+${newDeathsCasesCount} today`;
 
+  globalCasesElement.innerHTML = `${totalGlobalCasesCount} total cases`;
+  globalDeathCasesElement.innerHTML = `${newGlobalDeathsCasesCount} total deaths`;
+};
 
-
-// format date
-
-  // format dates
-  datesList.forEach((date) => {
-    formatedDates.push(formatDate(date));
-  });
 
 
 // UPDATE CHART
 let my_chart;
 function axesLinearChart() {
+
+// format dates
+
+dates.forEach((date) => {
+  formatedDates.push(formatDate(date));
+});
+
   if (my_chart) {
     my_chart.destroy();
   }
 
-  console.log(casesList)
-
   my_chart = new Chart(ctx, {
-    type: "line",
+    type: 'line',
     data: {
       datasets: [
         {
-          label: "Cases",
+          label: 'Cases',
           data: casesList,
           fill: false,
-          borderColor: "#FFF",
-          backgroundColor: "#FFF",
+          borderColor: '#FFF',
+          backgroundColor: '#FFF',
           borderWidth: 1,
         },
+        // {
+        //   label: "Global",
+        //   data: globalListConfirmed,
+        //   fill: false,
+        //   borderColor: "#009688",
+        //   backgroundColor: "#009688",
+        //   borderWidth: 1,
+        // },
         {
-          label: "Deaths",
+          label: 'Deaths',
           data: deathsList,
           fill: false,
-          borderColor: "#f44336",
-          backgroundColor: "#f44336",
+          borderColor: '#f44336',
+          backgroundColor: '#f44336',
           borderWidth: 1,
         },
       ],
@@ -220,31 +235,24 @@ function axesLinearChart() {
   });
 }
 
-
 // FORMAT DATES
 const monthsNames = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
 ];
-
 
 function formatDate(dateString) {
   let date = new Date(dateString);
 
   return `${date.getDate()} ${monthsNames[date.getMonth()]}`;
 }
-
-
-
-
-

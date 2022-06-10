@@ -66,8 +66,8 @@ header {
 
 /* -------- NAV -------- */
 
-nav {
-}
+/* nav {
+} */
 
 nav ul {
   display: flex;
@@ -119,8 +119,10 @@ main {
 
 .country,
 .total-cases,
-.recovered,
-.deaths {
+.global,
+.deaths,
+.global.deaths-val
+ {
     height: 100px;
 }
 
