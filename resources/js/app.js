@@ -52,6 +52,11 @@ function resetList() {
   globalListConfirmed = []
   globalDeathsConfirmed = []
 }
+
+function addGeoToLocalStorage (countryAbb) {
+  localStorage.setItem('key', countryAbb);
+}
+
 // Get users Latitude and Longitude and pass it to Geocoding Api, LocationIq
 
 const showCountryCode = (position) => {
@@ -69,8 +74,14 @@ const showCountryCode = (position) => {
         if (country.code == countryCode) {
           userCountryFull = country.name; // I used abb here instead of name!
           userCountryAbb = countryCode;
-        }
+        } 
       });
+
+      
+ if (!localStorage.getItem('key')) {
+ addGeoToLocalStorage(userCountryAbb)
+ } 
+
       fetchData(userCountryFull, userCountryAbb);
       //////////
     });
@@ -85,6 +96,8 @@ const getUsersLocation = () => {
 };
 
 getUsersLocation();
+
+
 
 
 
@@ -177,8 +190,8 @@ const updateStats = () => {
   deathsElement.innerHTML = totalDeathsCount;
   newDeathsElement.innerHTML = `+${newDeathsCasesCount} today`;
 
-  globalCasesElement.innerHTML = `${totalGlobalCasesCount} total cases`;
-  globalDeathCasesElement.innerHTML = `${newGlobalDeathsCasesCount} total deaths`;
+  globalCasesElement.innerHTML = `${totalGlobalCasesCount} cases`;
+  globalDeathCasesElement.innerHTML = `${newGlobalDeathsCasesCount} deaths`;
 };
 
 
@@ -205,8 +218,8 @@ dates.forEach((date) => {
           label: 'Cases',
           data: casesList,
           fill: false,
-          borderColor: '#FFF',
-          backgroundColor: '#FFF',
+          borderColor: '#9b59b6',
+          backgroundColor: '#9b59b6',
           borderWidth: 1,
         },
         // {

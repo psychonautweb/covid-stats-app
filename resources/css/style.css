@@ -1,8 +1,5 @@
 /*                  FONTS                    */
-@font-face {
-  font-family: 'Gilroy';
-  src: url(./Gilroy-Regular.woff);
-}
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;500;900&display=swap');
 
 /*                    GENERAL                     */
 
@@ -10,7 +7,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: 'Gilroy', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 html {
@@ -19,6 +16,10 @@ html {
 
 .hide {
   display: none;
+}
+
+body {
+  background-color: #ddd;
 }
 
 .fadeIn {
@@ -40,10 +41,13 @@ header {
   display: flex;
   align-items: center;
   margin: 0 auto;
-  background-color: #f3f2f2;
+  background-color: #fdfdfd;
   max-width: 1200px;
   width: 100%;
   height: 60px;
+
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
 /* -------- LOGO -------- */
@@ -61,7 +65,7 @@ header {
 
 .logo p {
   font-weight: bold;
-  color: #cf9817;
+  color: #27ae60;
 }
 
 /* -------- NAV -------- */
@@ -84,8 +88,16 @@ nav ul li:last-child {
 
 nav ul li a {
   text-decoration: none;
-  color: #cf9817;
+  color: #27ae60;
   padding: 10px;
+}
+
+nav ul li a:hover {
+
+
+  box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.75);
+-webkit-box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.75);
 }
 
 /*                      MAIN                      */
@@ -99,8 +111,9 @@ main {
 
 .stats {
   width: 100%;
-  background-image: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url('../img/bg.jpg');
-  background-size: cover;
+  background-color: #ffe4e4;
+  /* background-image: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url('../img/bg.jpg');
+  background-size: cover; */
 }
 
 /* -------- LATEST REPORT -------- */
@@ -123,20 +136,34 @@ main {
 .deaths,
 .global.deaths-val
  {
-    height: 100px;
+    height: 100%;
 }
 
 .name {
-    color: #f3d286;
-    font-size: 2.2rem;
-    font-weight: bold;
+  border-bottom: 1px solid #ff7675;
+  color: #ff7675;
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
 }
 
 .change-country {
     cursor: pointer;
+
+    padding: 0.5rem;
+    width: fit-content;
+    border: 1px solid #f3f2f2;
+    border-radius: 8px;
+    background-color: #ff7675;
+    color: #ffffff;
+
 }
 
 .title {
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid #ffc8c8;
+  font-weight: bold;
+  color: #7e6c6c;
     font-size: 1.3rem;
 }
 
@@ -145,11 +172,27 @@ main {
     font-weight: bold;
 }
 
-.recovered .value {
+.total-cases, .deaths, .global {
+  height: 150px;
+  background-color: #fdfdfd;
+  padding: 1rem;
+  border: 1px solid #ffe4e4;
+  border-radius: 8px;
+  box-shadow: 0px 0px 2px 1px rgb(255 118 117 / 34%);
+  -webkit-box-shadow: 0px 0px 2px 1px rgb(255 118 117 / 34%);
+  -moz-box-shadow: 0px 0px 2px 1px rgb(255 118 117 / 34%);
+  overflow: hidden;
+}
+
+.value {
+  color: #9b59b6;
+}
+
+/* .recovered .value {
     font-size: 2 rem;
     font-weight: bold;
     color: #75ef95;
-}
+} */
 
 .deaths .value {
     font-size: 2 rem;
@@ -157,8 +200,13 @@ main {
     color: #f05f5f;
 }
 
+.deaths-val {
+  color: #9b59b6;
+}
+
 .new-value {
     font-size: 1.3rem;
+    color:#9b59b6;
 }
 
 /* -------- CHART -------- */
@@ -180,17 +228,16 @@ main {
 }
 
 .search-box {
-    position: absolute;
-    background-color: #111;
+  position: absolute;
+  background-color: #e3605f;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    width: 400px;
-    height: 30px;
-
-    z-index: 1;
+  width: 400px;
+  height: 30px;
+  z-index: 1;
 }
 
 .search-box input {
@@ -198,8 +245,8 @@ main {
     height: 25px;
 
     border: none;
-    background-color: transparent;
-    color: #fff;
+    background-color: #f3f2f2;
+    color: #000;
 
     padding-left: 15px;
 
@@ -221,7 +268,7 @@ main {
     width: 400px;
     height: 300px;
 
-    background-color: #111;
+    background-color: #ff7675;
     opacity: 0.9;
 
     overflow-y: scroll;
@@ -235,12 +282,12 @@ main {
     list-style: none;
     cursor: pointer;
     padding: 10px;
-    color: #fff;
+    color: rgb(0, 0, 0);
 }
 
 .country-list ul li:hover {
     border-left: 1px solid #fff;
-    color: #cf9817;
+    background-color: #f3f2f2;
 }
 
 /* SCROLL BAR */
@@ -252,17 +299,17 @@ main {
   
   /* Track */
   ::-webkit-scrollbar-track {
-    background: #111;
+    background: #f3f2f2;
   }
   
   /* Handle */
   .country-list::-webkit-scrollbar-thumb {
-    background: #f1f1f1;
+    background: #ed6464;
   }
   
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: #fff;
+    background: #ee8b8b;
   }
 
 
@@ -273,7 +320,10 @@ footer {
     height: 60px;
 
     margin: 0 auto;
-    background-color: #cf9817;
+    background-color: #fdfdfd;
+
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
 }
 
 .footer-container {
@@ -290,7 +340,8 @@ footer {
 }
 
 .copyright p {
-    color: #fff;
+  font-weight: bold;
+    color: #e3605f;
 }
 
 
