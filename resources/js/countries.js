@@ -232,17 +232,26 @@ const createCountryList = () => {
   const numOfCountries = countryList.length;
 
   let i = 0;
-  let ulListId;
+  let ulListId, ulListId1;
 
   countryList.forEach((country, index) => {
     if (index % Math.ceil(numOfCountries / numOfUlLists) == 0) {
       ulListId = `list-${i}`;
+      ulListId1 = `compare-list-${i}`;
+
       countryListElement.innerHTML += `<ul id='${ulListId}'></ul>`;
+      countryListElement1.innerHTML += `<ul id='${ulListId1}'></ul>`; //!!!!!!
       i++;
     }
 
     document.getElementById(`${ulListId}`).innerHTML += `
     <li onclick="fetchData('${country.name}', '${country.code}')" id="${country.name}">
+${country.name}
+    </li>
+    `;
+
+        document.getElementById(`${ulListId1}`).innerHTML += `
+    <li onclick="fetchData('${country.name}', '${country.code}')" data-country-id="${country.name}">
 ${country.name}
     </li>
     `;
@@ -315,8 +324,6 @@ countryListElement1.addEventListener('click', function () {
   countryElementNo1.classList.toggle('hide');
 });
 
-// comparison
-
 //Filter countries // Event triggers when the value of input is changed
 
 input.addEventListener('input', function () {
@@ -329,12 +336,6 @@ input.addEventListener('input', function () {
     }
   });
 });
-
-//
-
-
-
-
 
 // Reset Country List - show all countries
 
