@@ -175,9 +175,10 @@ main {
     font-size: 1.3rem;
 }
 
-.total-cases .value {
-    font-size: 2 rem;
-    font-weight: bold;
+.total-cases .value, .deaths .value {
+  color: #7e6c6c;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .total-cases, .deaths, .global {
@@ -192,13 +193,13 @@ main {
   overflow: hidden;
 }
 
-.value {
+.global .value {
   color: #7e6c6c;
+  font-size: 1rem;
 }
 
-.new-value {
-    font-size: 1.3rem;
-    color:#9b59b6;
+.total-cases .new-value, .deaths .new-value {
+    color:red;
 }
 
 /* -------- CHART -------- */

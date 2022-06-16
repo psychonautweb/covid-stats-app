@@ -64,7 +64,7 @@ function resetList() {
   globalNewDeathsConfirmed = [];
   globalNewCasesConfirmed = [];
 
-  dateOfData = []
+  dateOfData = [];
 }
 
 function addGeoToLocalStorage(countryAbb) {
@@ -138,13 +138,11 @@ const fetchDataOnLoad = () => {
             globalNewDeathsConfirmed.push(data.Global.NewDeaths);
             globalTotalDeaths.push(data.Global.TotalDeaths);
             dateOfData = data.Date;
-            console.log(dateOfData);
           });
       }
       updateUi();
     };
-    apiFetch()
-
+    apiFetch();
   }
 };
 
@@ -159,26 +157,23 @@ const fetchData = (country, code) => {
 
   const apiFetch = async (code) => {
     if (userCountry !== 'Global') {
-
-
       await fetch(
-        `https://api.covid19api.com/total/country/${code}/status/confirmed`,
+        `https://api.covid19api.com/total/dayone/country/${code}/status/confirmed`,
         options
       )
         .then((response) => {
           return response.json();
         })
         .then((data) => {
-          dateOfData = data[data.length - 1].Date;
-          console.log(dateOfData)
           data.forEach((entry) => {
             dates.push(entry.Date);
             casesList.push(entry.Cases);
           });
+          dateOfData = data[data.length - 1].Date;
         });
 
       await fetch(
-        `https://api.covid19api.com/total/country/${code}/status/deaths`,
+        `https://api.covid19api.com/total/dayone/country/${code}/status/deaths`,
         options
       )
         .then((response) => {
@@ -189,7 +184,6 @@ const fetchData = (country, code) => {
             deathsList.push(entry.Cases);
           });
         });
-        
     }
 
     // ako nije global run this // ovo cemo izvrsiti nakon getLocation
@@ -200,7 +194,6 @@ const fetchData = (country, code) => {
 
   apiFetch(code);
 };
-
 
 // Update Ui
 
@@ -218,14 +211,13 @@ const updateStats = () => {
     globalPopulationCount;
 
   if (userCountry !== 'Global') {
-    totalCasesCount = casesList[casesList.length - 1]; 
-    newConfirmedCasesCount = totalCasesCount - casesList[casesList.length - 2]; 
+    totalCasesCount = casesList[casesList.length - 1];
+    newConfirmedCasesCount = totalCasesCount - casesList[casesList.length - 2];
     totalDeathsCount = deathsList[deathsList.length - 1];
     newDeathsCasesCount = totalDeathsCount - deathsList[deathsList.length - 2];
 
     dateFormat = new Date(dateOfData);
     globalPopulationCount = dateFormat.toLocaleString();
-
   } else {
     totalCasesCount = globalTotalCases;
     newConfirmedCasesCount = globalNewCasesConfirmed;
@@ -240,11 +232,11 @@ const updateStats = () => {
 
   countryNameElement.innerHTML = userCountry;
 
-  totalCasesElement.innerHTML = totalCasesCount;
-  newTotalCasesElement.innerHTML = `+${newConfirmedCasesCount}`;
+  totalCasesElement.innerHTML = totalCasesCount.toLocaleString('sr-RS');
+  newTotalCasesElement.innerHTML = `+${newConfirmedCasesCount.toLocaleString('sr-RS')}`;
 
-  deathsElement.innerHTML = totalDeathsCount;
-  newDeathsElement.innerHTML = `+${newDeathsCasesCount}`;
+  deathsElement.innerHTML = totalDeathsCount.toLocaleString('sr-RS');
+  newDeathsElement.innerHTML = `+${newDeathsCasesCount.toLocaleString('sr-RS')}`;
 
   dateOfDataRetrievalElement.innerHTML = `Updated at:<br/> 
   ${globalPopulationCount}
