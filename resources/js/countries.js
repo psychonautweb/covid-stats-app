@@ -215,7 +215,18 @@ const closeListBtnElement = countryElement.querySelector('.close');
 
 const input = document.getElementById('search-input');
 
-// Create Country List // mozda da zamijenim id="${country.name}"> sa data-
+
+// Target Compare Country Elements
+
+const countryElementNo1 = document.querySelector('.search-country1')
+const countryListElement1 = document.querySelector('.country-list1');
+const changeCountryBtnElement1 = document.querySelector('.change-country1');
+const closeListBtnElement1 = document.querySelector('.close1');
+
+const input1 = document.getElementById('search-input1');
+
+
+// Create Country List //
 
 const createCountryList = () => {
   const numOfCountries = countryList.length;
@@ -238,8 +249,37 @@ ${country.name}
   });
 };
 
+
 let numOfUlLists = 3;
 createCountryList();
+
+
+// const createCountryList1 = () => {
+//   const numOfCountries = countryList.length;
+
+//   let i = 0;
+//   let ulListId;
+
+//   countryList.forEach((country, index) => {
+//     if (index % Math.ceil(numOfCountries / numOfUlLists) == 0) {
+//       ulListId = `compare-list-${i}`;
+//       countryListElement1.innerHTML += `<ul id='${ulListId}'></ul>`;
+//       i++;
+//     }
+
+//     document.getElementById(`${ulListId}`).innerHTML += `
+//     <li onclick="updateCountryForCompare1('${country.name}')" data-country-id="${country.name}">
+// ${country.name}
+//     </li>
+//     `;
+//   });
+// };
+
+
+
+// // let numOfUlLists = 3;
+// createCountryList1();
+
 
 //Show Country List on click of a button
 
@@ -258,11 +298,29 @@ countryListElement.addEventListener('click', function () {
   searchCountryElement.classList.toggle('hide');
 });
 
+// comparison
+
+changeCountryBtnElement1.addEventListener('click', function () {
+  input.value = '';
+  resetCountryList();
+  countryElementNo1.classList.toggle('hide');
+  countryElementNo1.classList.add('fadeIn');
+});
+
+closeListBtnElement1.addEventListener('click', function () {
+  countryElementNo1.classList.toggle('hide');
+});
+
+countryListElement1.addEventListener('click', function () {
+  countryElementNo1.classList.toggle('hide');
+});
+
+// comparison
+
 //Filter countries // Event triggers when the value of input is changed
 
 input.addEventListener('input', function () {
   let value = input.value.toUpperCase();
-
   countryList.forEach((country) => {
     if (country.name.toUpperCase().startsWith(value)) {
       document.getElementById(country.name).classList.remove('hide');
@@ -272,6 +330,12 @@ input.addEventListener('input', function () {
   });
 });
 
+//
+
+
+
+
+
 // Reset Country List - show all countries
 
 const resetCountryList = () => {
@@ -279,3 +343,39 @@ const resetCountryList = () => {
     document.getElementById(country.name).classList.remove('hide');
   });
 };
+
+
+
+// update country1 for compare 
+
+function updateCountryForCompare1(country) {
+document.getElementById('selected-country1').textContent = country
+
+}
+
+
+
+
+
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.querySelector(".country-list1").classList.toggle("hide");
+}
+
+function filterFunction() {
+  var input, filter, ul, li, a, i;
+  input = document.getElementById("search-input1");
+  filter = input.value.toUpperCase();
+  console.log(filter)
+  div = document.querySelector(".country-list1");
+  li = div.querySelectorAll(".li");
+  for (i = 0; i < li.length; i++) {
+    txtValue = li[i].textContent || li[i].innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+}

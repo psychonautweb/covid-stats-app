@@ -1,73 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./resources/css/login.css" />
-    <link rel="stylesheet" href="./resources/css/style.css" />
-    <script src="./resources/js/countries.js" defer></script>
-    <script src="./resources/js/app.js" defer></script>
-    <title>Log In</title>
-  </head>
-  <body>
-    <header>
-      <a class="logo" href="index.html">
-        <img src="./resources/img/logo.png" alt="logo" />
-        <p>Covid-19 Statistics</p>
-      </a>
-      <nav>
-        <ul>
-          <li>
-            <a href="#">HOME</a>
-          </li>
-          <li>
-            <a href="#">ABOUT</a>
-          </li>
-          <li>
-            <a href="./login.html">LOG IN</a>
-          </li>
-        </ul>
-      </nav>
-    </header>
-    <div class="wrapper">
-
-      <div id="login-box">
-        <div class="left">
-          <h1 id="status">Register</h1>
-          <label for="username">Username</label>
-          <input type="text" id="username" name="username" />
-          <label for="email">Email</label>
-          <input type="text" id="email" name="email" />
-          <label for="password">password</label>
-          <input type="password" id="password" name="password" />
-          <input type="submit" id="signUp" name="signup_submit" value="Sign up" />
-        </div>
-      </div>
-  
-      <div id="signup-box">
-        <div class="left">
-          <h1 id="status">Log In</h1>
-          <label for="email">Email</label>
-          <input type="text" id="login-email" name="email" />
-          <label for="password">password</label>
-          <input type="password" id="login-password" name="password" />
-          <input type="submit" id="login" name="login" value="Login" />
-        </div>
-      </div>
-
-    </div>
-
-    <footer>
-      <div class="footer-container">
-        <div class="copyright">
-          <p>QSHub project - 2022</p>
-        </div>
-      </div>
-    </footer>
-    <script type="module">
-      // Import the functions you need from the SDKs you need
-      import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js';
       import {
         getDatabase,
         set,
@@ -147,6 +78,3 @@
             alert(errorMessage);
           });
       });
-    </script>
-  </body>
-</html>

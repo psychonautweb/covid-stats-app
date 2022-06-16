@@ -14,10 +14,10 @@
   </head>
   <body>
     <header>
-      <div class="logo">
+      <a class="logo" href="index.html">
         <img src="./resources/img/logo.png" alt="logo" />
         <p>Covid-19 Statistics</p>
-      </div>
+      </a>
       <nav>
         <ul>
           <li>
@@ -27,7 +27,7 @@
             <a href="#">ABOUT</a>
           </li>
           <li>
-            <a href="./login.html">Log In</a>
+            <a href="./login.html">LOG IN</a>
           </li>
         </ul>
       </nav>
@@ -66,9 +66,8 @@
             <div class="new-value">+0</div>
           </div>
           <div class="global">
-            <div class="title">World Stats</div>
+            <div class="title">Date</div>
             <div class="value">0</div>
-            <div class="deaths-val">0</div>
           </div>
         </div>
 
@@ -76,7 +75,103 @@
           <canvas id="axes_line_chart"></canvas>
         </div>
       </div>
-    </main>    
+    </main>
+
+    <aside class="compare-countries">
+      <h1>Compare Statistics</h1>
+      <div class="country1">
+        <h1>Country1 :<span id="selected-country1"></span></h1>
+          <div class="change-country1" onclick="myFunction()">Change</div>
+          <div class="search-country1 hide">
+            <div class="search-box1">
+              <input
+                type="text"
+                id="search-input1"
+                placeholder="Search Country"
+                onkeyup="filterFunction()"
+              />
+              <img
+                class="close1"
+                src="./resources/img/close.svg"
+                alt="close"
+              />
+            </div>
+            <div class="country-list1 hide"></div>
+          </div>
+          
+          <div class="country-1-total-cases">
+            <div class="country-1-title">Total Cases</div>
+            <div class="country-1-value">0</div>
+            <div class="country-1-new-value">+0</div>
+          </div>
+          <div class="country-1-deaths">
+            <div class="country-1-title">Deaths</div>
+            <div class="country-1-value">0</div>
+            <div class="country-1-new-value">+0</div>
+          </div>
+          <div class="country-1-global">
+            <div class="country-1-title">World Stats</div>
+            <div class="country-1-value">0</div>
+            <div class="country-1-deaths-val">0</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="country2">
+        <h1>Country2 :<span id="selected-country1"></span></h1>
+          <div class="change-country2">Change</div>
+          <div class="search-country2 hide">
+            <div class="search-box1">
+              <input
+                type="text"
+                id="search-input2"
+                placeholder="Search Country"
+              />
+              <img
+                class="close2"
+                src="./resources/img/close.svg"
+                alt="close"
+              />
+            </div>
+            <div class="country-list2"></div>
+          </div>
+
+          <div class="country-2-total-cases">
+            <div class="country-2-title">Total Cases</div>
+            <div class="country-2-value">0</div>
+            <div class="country-2-new-value">+0</div>
+          </div>
+          <div class="country-2-deaths">
+            <div class="country-2-title">Deaths</div>
+            <div class="country-2-value">0</div>
+            <div class="country-2-new-value">+0</div>
+          </div>
+          <div class="country-2-global">
+            <div class="country-2-title">World Stats</div>
+            <div class="country-2-value">0</div>
+            <div class="country-2-deaths-val">0</div>
+          </div>
+      </div>
+
+    </aside>
+    <section class="section-wrapper">
+
+      <div>
+
+        <table id="countries-stats">
+          <tr>
+              <th onclick="sortTable(0)">Country</th>
+              <th onclick="sortTable(1)">Cases</th>
+              <th onclick="sortTableNum()">Deaths</th>
+              <th onclick="sortTableNum()">Population</th>
+              <th onclick="sortTableNum()">Updated</th>
+          </tr>
+        </table>
+      </div>
+
+
+    </section>
     
     <footer>
       <div class="footer-container">
