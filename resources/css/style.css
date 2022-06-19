@@ -22,6 +22,10 @@ body {
   background-color: #ddd;
 }
 
+aside {
+  height: 100vh;
+}
+
 /* main {
   height: 100vh;
 } */
@@ -167,7 +171,7 @@ main {
 
 }
 
-.title {
+.title, .country-1-title, .country-2-title  {
   margin-bottom: 0.5rem;
   border-bottom: 1px solid #ffc8c8;
   font-weight: bold;
@@ -175,7 +179,7 @@ main {
     font-size: 1.3rem;
 }
 
-.total-cases .value, .deaths .value {
+.total-cases .value, .deaths .value, .country-1-value, .country-2-value {
   color: #7e6c6c;
   font-size: 1.5rem;
   font-weight: bold;
@@ -198,7 +202,7 @@ main {
   font-size: 1rem;
 }
 
-.total-cases .new-value, .deaths .new-value {
+.total-cases .new-value, .deaths .new-value, .country-1-new-value, .country-2-new-value  {
     color:red;
 }
 
@@ -220,7 +224,7 @@ main {
     top: 10px;
 }
 
-.search-box {
+.search-box, .search-box1, .search-box2 {
   position: absolute;
   background-color: #e3605f;
 
@@ -233,7 +237,7 @@ main {
   z-index: 1;
 }
 
-#search-input {
+#search-input, #search-input1, #search-input2 {
     width: 360px;
     height: 25px;
 
@@ -252,14 +256,14 @@ main {
     cursor: pointer;
 }
 
-.country-list {
+.country-list, .country-list1, .country-list2 {
     display: flex;
 
     position: absolute;
     top: 30px;
     
     width: 400px;
-    height: 300px;
+    height: 400px;
 
     background-color: #ff7675;
     opacity: 0.9;
@@ -267,11 +271,11 @@ main {
     overflow-y: scroll;
 }
 
-.country-list ul {
+.country-list ul, .country-list1 ul, .country-list2 ul {
     width: 100%;
 }
 
-.country-list ul li {
+.country-list ul li, .country-list1 ul li, .country-list2 ul li {
     list-style: none;
     cursor: pointer;
     padding: 10px;
@@ -375,12 +379,21 @@ font-size: 2.2rem;
 .country1, .country2 {
   flex: 1 0 0%;
   padding: 1rem;
+  height: 500px;
   box-shadow: 0px 0px 2px 1px rgb(255 118 117 / 34%);
   -webkit-box-shadow: 0px 0px 2px 1px rgb(255 118 117 / 34%);
   -moz-box-shadow: 0px 0px 2px 1px rgb(255 118 117 / 34%);
   overflow: hidden;
 
   width: 100%;
+}
+
+#selected-country1, #selected-country2 {
+  border-bottom: 1px solid #ff7675;
+  color: #ff7675;
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
 }
 
 .change-country1, .change-country2 {
@@ -394,17 +407,17 @@ font-size: 2.2rem;
   padding: 1rem;
 }
 
-.country-list1 li {
+.country-list1 li, .country-list2 li {
   list-style: none;
 }
 
 
-.search-country1 {
+.search-country1, .search-country2 {
   position: relative;
   top: 10px;
 }
 
-.search-box1 {
+.search-box1, .search-box2 {
 position: absolute;
 background-color: #e3605f;
 
@@ -417,7 +430,7 @@ height: 30px;
 z-index: 1;
 }
 
-.search-input1 {
+.search-input1, .search-input2 {
   width: 360px;
   height: 25px;
 
@@ -429,6 +442,19 @@ z-index: 1;
 
   font-size: 1.1rem;
 }
+
+.country-1-total-cases, .country-2-total-cases, .country-1-deaths, .country-2-deaths {
+  height: 150px;
+  background-color: #fdfdfd;
+  padding: 1rem;
+  border: 1px solid #ffe4e4;
+  border-radius: 8px;
+  box-shadow: 0px 0px 2px 1px rgb(255 118 117 / 34%);
+  -webkit-box-shadow: 0px 0px 2px 1px rgb(255 118 117 / 34%);
+  -moz-box-shadow: 0px 0px 2px 1px rgb(255 118 117 / 34%);
+  overflow: hidden;
+}
+
 
 /*                    FOOTER                      */
 

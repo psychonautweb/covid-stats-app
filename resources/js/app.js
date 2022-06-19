@@ -15,6 +15,35 @@ const dateOfDataRetrievalElement =
 const deathsElement = latestReportHelper.querySelector('.deaths .value');
 const newDeathsElement = latestReportHelper.querySelector('.deaths .new-value');
 
+//////// optimize
+const selectedCountry1Element = document.getElementById('selected-country1');
+const totalCasesCountry1Element = document.querySelector(
+  '.country-1-total-cases .country-1-value'
+);
+const newCasesCountry1Element = document.querySelector(
+  '.country-1-total-cases .country-1-new-value'
+);
+const deathCasesCountry1Element = document.querySelector(
+  '.country-1-deaths .country-1-value'
+);
+const newDeathCasesCountry1Element = document.querySelector(
+  '.country-1-deaths .country-1-new-value'
+);
+
+const selectedCountry2Element = document.getElementById('selected-country2');
+const totalCasesCountry2Element = document.querySelector(
+  '.country-2-total-cases .country-2-value'
+);
+const newCasesCountry2Element = document.querySelector(
+  '.country-2-total-cases .country-2-new-value'
+);
+const deathCasesCountry2Element = document.querySelector(
+  '.country-2-deaths .country-2-value'
+);
+const newDeathCasesCountry2Element = document.querySelector(
+  '.country-2-deaths .country-2-new-value'
+);
+
 // Section Summary Lower Part TABLE
 
 const table = document.getElementById('countries-stats');
@@ -115,6 +144,8 @@ const selectCountryForDataRetrieval = () => {
   userCountry = 'global';
 };
 
+// try using this endpoint for spec countries >>> get last 2 days dynamically by using date method and -2 e.g.
+//https://api.covid19api.com/total/country/US/status/confirmed?from=2022-06-15T00:00:00Z&to=2022-06-17T00:00:00Z
 //get https://eu1.locationiq.com/v1/search.php?key=pk.5dda2a04ec08d2da359b8da73fb99ed8&q=serbia&format=json
 //https://eu1.locationiq.com/v1/nearby.php?key=pk.5dda2a04ec08d2da359b8da73fb99ed8&lat=44.7744753&lon=17.1815871
 
@@ -123,92 +154,129 @@ const selectCountryForDataRetrieval = () => {
 const fetchDataOnLoad = () => {
   countryNameElement.innerHTML = 'Select Country...';
 
-  if (userCountry === 'Global') {
-    resetList();
+  resetList();
 
-    const apiFetch = async () => {
-      if (userCountry === 'Global') {
-        await fetch(`https://api.covid19api.com/summary`, options)
-          .then((response) => {
-            return response.json();
-          })
-          .then((data) => {
-            globalNewCasesConfirmed.push(data.Global.NewConfirmed);
-            globalTotalCases.push(data.Global.TotalConfirmed);
-            globalNewDeathsConfirmed.push(data.Global.NewDeaths);
-            globalTotalDeaths.push(data.Global.TotalDeaths);
-            dateOfData = data.Date;
-          });
-      }
-      updateUi();
-    };
-    apiFetch();
-  }
+  const apiFetch = async () => {
+    if (userCountry === 'Global') {
+      await fetch(`https://api.covid19api.com/summary`, options)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          globalNewCasesConfirmed.push(data.Global.NewConfirmed);
+          globalTotalCases.push(data.Global.TotalConfirmed);
+          globalNewDeathsConfirmed.push(data.Global.NewDeaths);
+          globalTotalDeaths.push(data.Global.TotalDeaths);
+          dateOfData = data.Date;
+        });
+    }
+    updateUi();
+  };
+  apiFetch();
 };
 
 fetchDataOnLoad();
 
-const fetchData = (country, code) => {
-  console.log(country + '' + code);
+const fetchData = (country, code, compareList, countryOneOrTwo) => {
+  console.log(country + ' ' + code + ' ' + compareList);
   userCountry = country;
   countryNameElement.innerHTML = 'Loading';
 
   resetList();
 
-  const apiFetch = async (code) => {
-    if (userCountry !== 'Global') {
-      await fetch(
-        `https://api.covid19api.com/total/dayone/country/${code}/status/confirmed`,
-        options
-      )
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          data.forEach((entry) => {
-            dates.push(entry.Date);
-            casesList.push(entry.Cases);
-          });
-          dateOfData = data[data.length - 1].Date;
-        });
+  // this condition updates the data for comparison table based on passed compareList argument
+  // this updates data for  chart and main stats table on the top
 
-      await fetch(
-        `https://api.covid19api.com/total/dayone/country/${code}/status/deaths`,
-        options
-      )
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          data.forEach((entry) => {
-            deathsList.push(entry.Cases);
-          });
-        });
-    }
+    const apiFetch = async (code) => {
+      if (userCountry !== 'Global') {
+        if (userCountry === ('USA' || 'US')) {
+          let todaysDate = new Date().toISOString().slice(0, 10); // YYYY-MM-DD format ... todaysDate.slice(8) - 2 >>> this way I could get last 2 days
+  
+          await fetch(
+            `https://api.covid19api.com/total/country/${code}/status/confirmed?from=2022-01-01T00:00:00Z&to=${todaysDate}`,
+            options
+          )
+            .then((response) => {
+              return response.json();
+            })
+            .then((data) => {
+              data.forEach((entry) => {
+                dates.push(entry.Date);
+                casesList.push(entry.Cases);
+              });
+              dateOfData = data[data.length - 1].Date;
+            });
+  
+          await fetch(
+            `https://api.covid19api.com/total/country/${code}/status/deaths?from=2022-01-01T00:00:00Z&to=${todaysDate}`,
+            options
+          )
+            .then((response) => {
+              return response.json();
+            })
+            .then((data) => {
+              data.forEach((entry) => {
+                deathsList.push(entry.Cases);
+              });
+            });
+        } else {
+          await fetch(
+            `https://api.covid19api.com/total/dayone/country/${code}/status/confirmed`,
+            options
+          )
+            .then((response) => {
+              return response.json();
+            })
+            .then((data) => {
+              data.forEach((entry) => {
+                dates.push(entry.Date);
+                casesList.push(entry.Cases);
+              });
+              dateOfData = data[data.length - 1].Date;
+            });
+  
+          await fetch(
+            `https://api.covid19api.com/total/dayone/country/${code}/status/deaths`,
+            options
+          )
+            .then((response) => {
+              return response.json();
+            })
+            .then((data) => {
+              data.forEach((entry) => {
+                deathsList.push(entry.Cases);
+              });
+            });
+        }
+      }
+  
+
 
     // ako nije global run this // ovo cemo izvrsiti nakon getLocation
     // samo ako je loggedIn ili ako je manuelno selektovan
 
-    updateUi();
+    updateUi(compareList, countryOneOrTwo);
   };
 
   apiFetch(code);
 };
 
-// Update Ui
+////////////////////  UPDATE USER INTERFACE ///////////////////////////////////
 
-const updateUi = () => {
-  updateStats();
+const updateUi = (compareList, countryOneOrTwo) => {
+  updateStats(compareList, countryOneOrTwo);
   axesLinearChart();
 };
 
-const updateStats = () => {
+const updateStats = (compareList, countryOneOrTwo) => {
   let totalCasesCount,
     newConfirmedCasesCount,
     totalDeathsCount,
     newDeathsCasesCount,
     dateFormat,
     globalPopulationCount;
+
+    console.log(compareList)
 
   if (userCountry !== 'Global') {
     totalCasesCount = casesList[casesList.length - 1];
@@ -233,14 +301,48 @@ const updateStats = () => {
   countryNameElement.innerHTML = userCountry;
 
   totalCasesElement.innerHTML = totalCasesCount.toLocaleString('sr-RS');
-  newTotalCasesElement.innerHTML = `+${newConfirmedCasesCount.toLocaleString('sr-RS')}`;
+  newTotalCasesElement.innerHTML = `+${newConfirmedCasesCount.toLocaleString(
+    'sr-RS'
+  )}`;
 
   deathsElement.innerHTML = totalDeathsCount.toLocaleString('sr-RS');
-  newDeathsElement.innerHTML = `+${newDeathsCasesCount.toLocaleString('sr-RS')}`;
+  newDeathsElement.innerHTML = `+${newDeathsCasesCount.toLocaleString(
+    'sr-RS'
+  )}`;
 
   dateOfDataRetrievalElement.innerHTML = `Updated at:<br/> 
   ${globalPopulationCount}
   `;
+
+  ///// Compare Section UI Update Logic ///
+  if (compareList) {
+    if (countryOneOrTwo === 'country1') {
+      selectedCountry1Element.innerText = userCountry;
+      totalCasesCountry1Element.innerText = totalCasesCount.toLocaleString('sr-RS');
+      newCasesCountry1Element.innerText = `+${newConfirmedCasesCount.toLocaleString(
+        'sr-RS'
+      )}`;
+      deathCasesCountry1Element.innerText =
+        totalDeathsCount.toLocaleString('sr-RS');
+      newDeathCasesCountry1Element.innerText = `+${newDeathsCasesCount.toLocaleString(
+        'sr-RS'
+      )}`;
+    } else if (countryOneOrTwo === 'country2')  {
+      selectedCountry2Element.innerText = userCountry;
+      totalCasesCountry2Element.innerText = totalCasesCount.toLocaleString('sr-RS');
+      newCasesCountry2Element.innerText = `+${newConfirmedCasesCount.toLocaleString(
+        'sr-RS'
+      )}`;
+      deathCasesCountry2Element.innerText =
+        totalDeathsCount.toLocaleString('sr-RS');
+      newDeathCasesCountry2Element.innerText = `+${newDeathsCasesCount.toLocaleString(
+        'sr-RS'
+      )}`;
+    }
+
+
+  }
+
 
   // if user is auth //
   // geolocate user and store the value in local storage
@@ -250,6 +352,8 @@ const updateStats = () => {
   // list of countries (aside el) should not be available
   // leave comparison options available
 };
+
+// -------------------------------------------------------------- //
 
 // UPDATE CHART
 let my_chart;

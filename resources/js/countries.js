@@ -218,12 +218,24 @@ const input = document.getElementById('search-input');
 
 // Target Compare Country Elements
 
+const country1Value = document.querySelector('country-1-value')
+
+function updateCountry1Stats () {
+  country1Value.value = 0//get this dynamically from api?
+}
+
+/////
 const countryElementNo1 = document.querySelector('.search-country1')
+const countryElementNo2 = document.querySelector('.search-country2')
 const countryListElement1 = document.querySelector('.country-list1');
+const countryListElement2 = document.querySelector('.country-list2');
 const changeCountryBtnElement1 = document.querySelector('.change-country1');
+const changeCountryBtnElement2 = document.querySelector('.change-country2');
 const closeListBtnElement1 = document.querySelector('.close1');
+const closeListBtnElement2 = document.querySelector('.close2');
 
 const input1 = document.getElementById('search-input1');
+const input2 = document.getElementById('search-input2');
 
 
 // Create Country List //
@@ -232,26 +244,34 @@ const createCountryList = () => {
   const numOfCountries = countryList.length;
 
   let i = 0;
-  let ulListId, ulListId1;
+  let ulListId, ulListId1, ulListId2; //2???
 
   countryList.forEach((country, index) => {
     if (index % Math.ceil(numOfCountries / numOfUlLists) == 0) {
       ulListId = `list-${i}`;
-      ulListId1 = `compare-list-${i}`;
+      ulListId1 = `compare-list[1]-${i}`;
+      ulListId2 = `compare-list[2]-${i}`;
 
       countryListElement.innerHTML += `<ul id='${ulListId}'></ul>`;
       countryListElement1.innerHTML += `<ul id='${ulListId1}'></ul>`; //!!!!!!
+      countryListElement2.innerHTML += `<ul id='${ulListId2}'></ul>`;
       i++;
     }
 
     document.getElementById(`${ulListId}`).innerHTML += `
-    <li onclick="fetchData('${country.name}', '${country.code}')" id="${country.name}">
+    <li onclick="fetchData('${country.name}', '${country.code}', 'false')" id="${country.name}">
 ${country.name}
     </li>
     `;
 
         document.getElementById(`${ulListId1}`).innerHTML += `
-    <li onclick="fetchData('${country.name}', '${country.code}')" data-country-id="${country.name}">
+    <li onclick="fetchData('${country.name}', '${country.code}', 'true', 'country1')" data-country-id="${country.name}">
+${country.name}
+    </li>
+    `;
+
+    document.getElementById(`${ulListId2}`).innerHTML += `
+    <li onclick="fetchData('${country.name}', '${country.code}', 'true', 'country2')" data-country-id="${country.name}">
 ${country.name}
     </li>
     `;
@@ -316,12 +336,25 @@ changeCountryBtnElement1.addEventListener('click', function () {
   countryElementNo1.classList.add('fadeIn');
 });
 
+changeCountryBtnElement2.addEventListener('click', function () {
+  input.value = '';
+  resetCountryList();
+  countryElementNo2.classList.toggle('hide');
+  countryElementNo2.classList.add('fadeIn');
+});
+
 closeListBtnElement1.addEventListener('click', function () {
   countryElementNo1.classList.toggle('hide');
+});
+closeListBtnElement2.addEventListener('click', function () {
+  countryElementNo2.classList.toggle('hide');
 });
 
 countryListElement1.addEventListener('click', function () {
   countryElementNo1.classList.toggle('hide');
+});
+countryListElement2.addEventListener('click', function () {
+  countryElementNo2.classList.toggle('hide');
 });
 
 //Filter countries // Event triggers when the value of input is changed
