@@ -205,7 +205,7 @@ let countryList = [
   { name: 'China', code: 'CN' },
 ];
 
-// Targeting Country Elements
+// Target Country Elements
 const countryElement = document.querySelector('.country'); //to optimize queryselector
 
 const searchCountryElement = countryElement.querySelector('.search-country');
@@ -330,14 +330,14 @@ countryListElement.addEventListener('click', function () {
 // comparison
 
 changeCountryBtnElement1.addEventListener('click', function () {
-  input.value = '';
+  input1.value = '';
   resetCountryList();
   countryElementNo1.classList.toggle('hide');
   countryElementNo1.classList.add('fadeIn');
 });
 
 changeCountryBtnElement2.addEventListener('click', function () {
-  input.value = '';
+  input1.value = '';
   resetCountryList();
   countryElementNo2.classList.toggle('hide');
   countryElementNo2.classList.add('fadeIn');
@@ -366,6 +366,17 @@ input.addEventListener('input', function () {
       document.getElementById(country.name).classList.remove('hide');
     } else {
       document.getElementById(country.name).classList.add('hide');
+    }
+  });
+});
+
+input1.addEventListener('input', function () {
+  let value = input1.value.toUpperCase();
+  countryList.forEach((country) => {
+    if (country.name.toUpperCase().startsWith(value)) {
+      document.querySelector(`'[data-country-id="${country.name}"]'`).classList.remove('hide');
+    } else {
+      document.getElementById(`'[data-country-id="${country.name}"]'`).classList.add('hide');
     }
   });
 });
