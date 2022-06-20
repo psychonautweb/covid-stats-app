@@ -265,13 +265,13 @@ ${country.name}
     `;
 
         document.getElementById(`${ulListId1}`).innerHTML += `
-    <li onclick="fetchData('${country.name}', '${country.code}', 'true', 'country1')" data-country-id="${country.name}">
+    <li onclick="fetchData('${country.name}', '${country.code}', 'true', 'country1')" data-country1-id="${country.name}">
 ${country.name}
     </li>
     `;
 
     document.getElementById(`${ulListId2}`).innerHTML += `
-    <li onclick="fetchData('${country.name}', '${country.code}', 'true', 'country2')" data-country-id="${country.name}">
+    <li onclick="fetchData('${country.name}', '${country.code}', 'true', 'country2')" data-country2-id="${country.name}">
 ${country.name}
     </li>
     `;
@@ -374,9 +374,20 @@ input1.addEventListener('input', function () {
   let value = input1.value.toUpperCase();
   countryList.forEach((country) => {
     if (country.name.toUpperCase().startsWith(value)) {
-      document.querySelector(`'[data-country-id="${country.name}"]'`).classList.remove('hide');
+      document.querySelector(`[data-country1-id="${country.name}"]`).classList.remove('hide');
     } else {
-      document.getElementById(`'[data-country-id="${country.name}"]'`).classList.add('hide');
+      document.querySelector(`[data-country1-id="${country.name}"]`).classList.add('hide');
+    }
+  });
+});
+
+input2.addEventListener('input', function () {
+  let value = input2.value.toUpperCase();
+  countryList.forEach((country) => {
+    if (country.name.toUpperCase().startsWith(value)) {
+      document.querySelector(`[data-country2-id="${country.name}"]`).classList.remove('hide');
+    } else {
+      document.querySelector(`[data-country2-id="${country.name}"]`).classList.add('hide');
     }
   });
 });
