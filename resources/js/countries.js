@@ -359,6 +359,19 @@ countryListElement2.addEventListener('click', function () {
 
 //Filter countries // Event triggers when the value of input is changed
 
+function inputFieldHandler (inputElement, countryNumber) {
+  inputElement.addEventListener('input', function () {
+  let value = inputElement.value.toUpperCase();
+  countryList.forEach((country) => {
+    if (country.name.toUpperCase().startsWith(value)) {
+      document.querySelector(`[data-country${countryNumber}-id="${country.name}"]`).classList.remove('hide');
+    } else {
+      document.querySelector(`[data-country${countryNumber}-id="${country.name}"]`).classList.add('hide');
+    }
+  });
+});
+}
+
 input.addEventListener('input', function () {
   let value = input.value.toUpperCase();
   countryList.forEach((country) => {
@@ -370,27 +383,33 @@ input.addEventListener('input', function () {
   });
 });
 
-input1.addEventListener('input', function () {
-  let value = input1.value.toUpperCase();
-  countryList.forEach((country) => {
-    if (country.name.toUpperCase().startsWith(value)) {
-      document.querySelector(`[data-country1-id="${country.name}"]`).classList.remove('hide');
-    } else {
-      document.querySelector(`[data-country1-id="${country.name}"]`).classList.add('hide');
-    }
-  });
-});
+// Some code optimization / simplification
+inputFieldHandler(input1, 1)
+inputFieldHandler(input2, 2)
 
-input2.addEventListener('input', function () {
-  let value = input2.value.toUpperCase();
-  countryList.forEach((country) => {
-    if (country.name.toUpperCase().startsWith(value)) {
-      document.querySelector(`[data-country2-id="${country.name}"]`).classList.remove('hide');
-    } else {
-      document.querySelector(`[data-country2-id="${country.name}"]`).classList.add('hide');
-    }
-  });
-});
+// input1.addEventListener('input', function () {
+//   let value = input1.value.toUpperCase();
+//   countryList.forEach((country) => {
+//     if (country.name.toUpperCase().startsWith(value)) {
+//       document.querySelector(`[data-country1-id="${country.name}"]`).classList.remove('hide');
+//     } else {
+//       document.querySelector(`[data-country1-id="${country.name}"]`).classList.add('hide');
+//     }
+//   });
+// });
+
+// input2.addEventListener('input', function () {
+//   let value = input2.value.toUpperCase();
+//   countryList.forEach((country) => {
+//     if (country.name.toUpperCase().startsWith(value)) {
+//       document.querySelector(`[data-country2-id="${country.name}"]`).classList.remove('hide');
+//     } else {
+//       document.querySelector(`[data-country2-id="${country.name}"]`).classList.add('hide');
+//     }
+//   });
+// });
+
+
 
 // Reset Country List - show all countries
 
