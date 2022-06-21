@@ -1,4 +1,4 @@
-// ALL COUNTRY NAMES WITH THEIR ISO CODE
+// ALL COUNTRY NAMES WITH THEIR ISO CODE --------------- //////////////////
 let countryList = [
   { name: 'USA', code: 'US' },
   { name: 'Spain', code: 'ES' },
@@ -205,8 +205,8 @@ let countryList = [
   { name: 'China', code: 'CN' },
 ];
 
-// Target Country Elements
-const countryElement = document.querySelector('.country'); //to optimize queryselector
+// Target Country Elements ---------------------------- //////////////////
+const countryElement = document.querySelector('.country'); //only for optimizing queryselector
 
 const searchCountryElement = countryElement.querySelector('.search-country');
 const countryListElement = countryElement.querySelector('.country-list');
@@ -216,15 +216,8 @@ const closeListBtnElement = countryElement.querySelector('.close');
 const input = document.getElementById('search-input');
 
 
-// Target Compare Country Elements
+// Target Compare Section Country Elements --------------- //////////////////
 
-const country1Value = document.querySelector('country-1-value')
-
-function updateCountry1Stats () {
-  country1Value.value = 0//get this dynamically from api?
-}
-
-/////
 const countryElementNo1 = document.querySelector('.search-country1')
 const countryElementNo2 = document.querySelector('.search-country2')
 const countryListElement1 = document.querySelector('.country-list1');
@@ -238,7 +231,7 @@ const input1 = document.getElementById('search-input1');
 const input2 = document.getElementById('search-input2');
 
 
-// Create Country List //
+// Create Country List --------------- //////////////////
 
 const createCountryList = () => {
   const numOfCountries = countryList.length;
@@ -310,7 +303,7 @@ createCountryList();
 // createCountryList1();
 
 
-//Show Country List on click of a button
+//Show Country List on click of a button --------------- //////////////////
 
 changeCountryBtnElement.addEventListener('click', function () {
   input.value = '';
@@ -327,7 +320,7 @@ countryListElement.addEventListener('click', function () {
   searchCountryElement.classList.toggle('hide');
 });
 
-// comparison
+// Event Listeners for Comparison Elements --------------- //////////////////
 
 changeCountryBtnElement1.addEventListener('click', function () {
   input1.value = '';
@@ -337,7 +330,7 @@ changeCountryBtnElement1.addEventListener('click', function () {
 });
 
 changeCountryBtnElement2.addEventListener('click', function () {
-  input1.value = '';
+  input2.value = '';
   resetCountryList();
   countryElementNo2.classList.toggle('hide');
   countryElementNo2.classList.add('fadeIn');
@@ -357,7 +350,7 @@ countryListElement2.addEventListener('click', function () {
   countryElementNo2.classList.toggle('hide');
 });
 
-//Filter countries // Event triggers when the value of input is changed
+// Event triggers when the value of input is changed // Search --------------- //////////////////
 
 function inputFieldHandler (inputElement, countryNumber) {
   inputElement.addEventListener('input', function () {
@@ -383,7 +376,6 @@ input.addEventListener('input', function () {
   });
 });
 
-// Some code optimization / simplification
 inputFieldHandler(input1, 1)
 inputFieldHandler(input2, 2)
 
@@ -411,7 +403,7 @@ inputFieldHandler(input2, 2)
 
 
 
-// Reset Country List - show all countries
+// Reset Country List - show all countries --------------- //////////////////
 
 const resetCountryList = () => {
   countryList.forEach((country) => {
@@ -421,7 +413,7 @@ const resetCountryList = () => {
 
 
 
-// update country1 for compare 
+// update country1 for compare  --------------- //////////////////
 
 function updateCountryForCompare1(country) {
 document.getElementById('selected-country1').textContent = country

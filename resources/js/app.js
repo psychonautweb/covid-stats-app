@@ -15,7 +15,7 @@ const dateOfDataRetrievalElement =
 const deathsElement = latestReportHelper.querySelector('.deaths .value');
 const newDeathsElement = latestReportHelper.querySelector('.deaths .new-value');
 
-//////// optimize
+//////// optimize this later > qselector
 const selectedCountry1Element = document.getElementById('selected-country1');
 const totalCasesCountry1Element = document.querySelector(
   '.country-1-total-cases .country-1-value'
@@ -518,9 +518,16 @@ function sortTable(n) {
 
 //Sort Table Numeric
 
-// Update comparison
 
-// Table Update
+// Table Update --------------- //////////////////
+
+//used DOM drilling as a practice here // otherwise queryselector
+const showSummaryButton = document.body.children[3].children[1];
+
+showSummaryButton.addEventListener('click', function () {
+  table.classList.toggle('hide')
+})
+
 
 fetch('https://covid-api.mmediagroup.fr/v1/cases', options)
   .then((response) =>
@@ -553,3 +560,31 @@ fetch('https://covid-api.mmediagroup.fr/v1/cases', options)
   .catch((err) => {
     console.log(err);
   });
+
+// ----------------- BACK TO TOP BUTTON ------------ ////////////
+
+const showOnPx = 100;
+const backToTopButton = document.querySelector(".back-to-top");
+
+const scrollContainer = () => {
+  return document.documentElement || document.body;
+};
+
+const goToTop = () => {
+  document.body.scrollIntoView({
+    behavior: "smooth"
+  });
+};
+
+document.addEventListener("scroll", () => {
+  // console.log("Scroll Height: ", scrollContainer().scrollHeight);
+  // console.log("Client Height: ", scrollContainer().clientHeight);
+
+  if (scrollContainer().scrollTop > showOnPx) {
+    backToTopButton.classList.remove("hidden");
+  } else {
+    backToTopButton.classList.add("hidden");
+  }
+});
+
+backToTopButton.addEventListener("click", goToTop);

@@ -24,7 +24,7 @@
             <a href="#about">ABOUT</a>
           </li>
           <li>
-            <a href="#">ALL COUNTRIES</a>
+            <a href="#summary">ALL COUNTRIES</a>
           </li>
           <li>
             <a href="#compare">COMPARE</a>
@@ -148,10 +148,9 @@
 
     </aside>
     <section class="section-wrapper">
-
-      <div>
-
-        <table id="countries-stats">
+      <h1 id="summary">Summary - All Countries</h1>
+      <button class="show-summary-btn">Show Summary</button>
+        <table id="countries-stats" class="hide">
           <tr>
               <th onclick="sortTable(0)">Country</th>
               <th onclick="sortTable(1)">Cases</th>
@@ -160,9 +159,6 @@
               <th onclick="sortTableNum()">Updated</th>
           </tr>
         </table>
-      </div>
-
-
     </section>
 
     <section id="about">
@@ -178,6 +174,11 @@
         </div>
       </div>
     </footer>
+    <button class="back-to-top hidden">
+      <svg xmlns="http://www.w3.org/2000/svg" class="back-to-top-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12" />
+      </svg>
+    </button>
   </body>
 </html>
 

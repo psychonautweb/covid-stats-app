@@ -309,45 +309,6 @@ main {
     background: #ee8b8b;
   }
 
-/* TABLE SUMMARY of ALL */
-.section-wrapper {
-  max-width: 1200px;
-      margin: 0 auto;
-}
-
-table{
-  width: 100%;
-  padding: 15px 0;
-  margin: 10px 0;
-  text-align: center;
-  border-spacing: 0;
-}
-tr:first-child{
-  background-color: #37474f;
-  color: #fafafa;
-  text-transform: uppercase;
-}
-th{
-  cursor: pointer;
-  padding: 15px 0;
-  border: none;
-  border-spacing: 0;
-  
-}
-tr:nth-child(even){
-  background-color: #fafafa;
-  
-  
-}
-tr:nth-child(odd){
-  background-color: #424242;
-  color: #fafafa;
-}
-tr td{
-  padding: 15px 0;
-  
-  
-}
 
 /*         Compare Section              */
 
@@ -366,6 +327,7 @@ tr td{
 }
 
 .compare-countries > h1 {
+  position: relative;
 flex-basis: 100%;
 text-align: center;
 color: #ff7675;
@@ -455,6 +417,94 @@ z-index: 1;
   overflow: hidden;
 }
 
+/* ------------------ SUMMARY ----------------- */
+
+/* TABLE SUMMARY of ALL */
+.section-wrapper {
+  max-width: 1200px;
+  width: 100%;
+      margin: 0 auto;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+}
+
+.section-wrapper > h1 {
+  width: 100%;
+  text-align: center;
+color: #ff7675;
+background-color: #fdfdfd;
+
+padding: 1rem;
+font-size: 2.2rem;
+    font-weight: bold;
+}
+
+table{
+  width: 100%;
+  padding: 15px 0;
+  margin: 10px 0;
+  text-align: center;
+  border-spacing: 0;
+}
+tr:first-child{
+  background-color: #37474f;
+  color: #fafafa;
+  text-transform: uppercase;
+}
+th{
+  cursor: pointer;
+  padding: 15px 0;
+  border: none;
+  border-spacing: 0;
+  
+}
+tr:nth-child(even){
+  background-color: #fafafa;
+  
+  
+}
+tr:nth-child(odd){
+  background-color: #424242;
+  color: #fafafa;
+}
+tr td{
+  padding: 15px 0;
+  
+  
+}
+
+.show-summary-btn {
+cursor: pointer;
+
+padding: 1rem;
+width: fit-content;
+border: 1px solid #f3f2f2;
+border-radius: 8px;
+background-color: #ff7675;
+color: #ffffff;
+}
+
+
+
+/* ----------------- ABOUT ------------------------- */
+
+#about {
+  margin: 3rem 0 0 0 ;
+}
+
+#about > h1 {
+  width: 100%;
+  text-align: center;
+color: #ff7675;
+background-color: #fdfdfd;
+
+padding: 1rem;
+font-size: 2.2rem;
+    font-weight: bold;
+}
 
 /*                    FOOTER                      */
 
@@ -485,6 +535,35 @@ footer {
 .copyright p {
   font-weight: bold;
     color: #e3605f;
+}
+
+/* Back To Top Button */
+
+.back-to-top {
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  border-radius: 100%;
+  background: #e3605f;
+  padding: 0.5rem;
+  border: none;
+  cursor: pointer;
+  opacity: 100%;
+  transition: opacity 0.5s;
+}
+
+.back-to-top:hover {
+  opacity: 60%;
+}
+
+.hidden {
+  opacity: 0%;
+}
+
+.back-to-top-icon {
+  width: 1rem;
+  height: 1rem;
+  color: #e8e8e8;
 }
 
 
