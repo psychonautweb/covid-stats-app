@@ -552,8 +552,19 @@ fetch('https://covid-api.mmediagroup.fr/v1/cases', options)
         country_name.innerHTML = countries_stat[i][0]; // name
         cases.innerHTML = countries_stat[i][1].All.confirmed;
         deaths.innerHTML = countries_stat[i][1].All.deaths;
-        serious_critical.innerHTML = countries_stat[i][1].All.population; // !
-        recovered_per_country.innerHTML = countries_stat[i][1].All.updated;
+
+        // check if target is available to avoid displaying undefined
+        if (countries_stat[i][1].All.population) {
+          serious_critical.innerHTML = countries_stat[i][1].All.population; 
+        } else {
+          serious_critical.innerHTML = 'no data'; // !
+        }
+        if (countries_stat[i][1].All.updated) {
+          recovered_per_country.innerHTML = countries_stat[i][1].All.updated;
+        } else {
+          recovered_per_country.innerHTML = ''
+        }
+
       }
     })
   )
