@@ -28,7 +28,7 @@
           <li>
             <a href="#compare">COMPARE</a>
           </li>
-          <li>
+          <li id="login-btn">
             <a href="./login.html">LOG IN</a>
           </li>
         </ul>
@@ -211,7 +211,8 @@
             console.log('logged IN')
 
             document.querySelector('.logo p').textContent = 'Welcome, ' + user.email;
-            
+            document.getElementById('login-btn').innerHTML = `<button id="log-out-btn">LOG OUT</button>`
+
             //function to show the page/app
             // hide the sign up form
           } else {
@@ -222,6 +223,12 @@
       }
 
       monitorAuthState();
+
+      const logout = document.getElementById('log-out-btn')
+      logout.addEventListener('click', async () => {
+        await signOut(auth)
+      })
   </script>
+  <script src="./resources/js/firebase.js"></script>
 </html>
 

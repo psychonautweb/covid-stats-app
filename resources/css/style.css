@@ -103,12 +103,20 @@ nav ul li a {
   padding: 10px;
 }
 
-nav ul li a:hover {
+nav ul li a:hover, #log-out-btn:hover {
 
 
   box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.75);
 -webkit-box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.75);
 -moz-box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.75);
+}
+
+#log-out-btn {
+  background-color: rgba(255, 255, 255, 0);
+  border: 0px;
+  text-decoration: none;
+    color: #d12222;
+    padding: 10px;
 }
 
 /*                      MAIN                      */
