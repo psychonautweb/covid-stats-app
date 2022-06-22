@@ -26,6 +26,9 @@
           <li>
             <a href="./login.html">LOG IN</a>
           </li>
+          <li>
+            <button id="log-out">LOG OUT</button>
+          </li>
         </ul>
       </nav>
     </header>
@@ -64,6 +67,8 @@
         </div>
       </div>
     </footer>
+
+
     <script type="module">
       // Import the functions you need from the SDKs you need
       import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js';
@@ -77,7 +82,8 @@
         getAuth,
         createUserWithEmailAndPassword,
         signInWithEmailAndPassword,
-        onAuthStateChanged
+        onAuthStateChanged,
+        signOut
       } from 'https://www.gstatic.com/firebasejs/9.8.3/firebase-auth.js';
       // TODO: Add SDKs for Firebase products that you want to use
       // https://firebase.google.com/docs/web/setup#available-libraries
@@ -137,8 +143,8 @@
             update(ref(database, 'users/' + user.uid), {
               last_login: loginDate,
             });
-            localStorage.setItem('loggedIn', auth);
-            window.location.href = "./dashboard.html";
+            // localStorage.setItem('loggedIn', auth);
+            // window.location.href = "./dashboard.html";
           })
           .catch((error) => {
             const errorCode = error.code;
@@ -156,12 +162,17 @@
             // hide the sign up form
           } else {
             console.log('you are not logged in')
-            //something.innerHTML = 'you are not logged in'
+            //something.innerHTML = 'logged out / you are not logged in'
           }
         })
       }
 
       monitorAuthState();
+
+      const logout = document.getElementById('log-out')
+      logout.addEventListener('click', async () => {
+        await signOut(auth)
+      })
 
     </script>
   </body>

@@ -442,12 +442,17 @@ font-size: 2.2rem;
     font-weight: bold;
 }
 
-table{
+/*table*/
+#countries-stats {
   width: 100%;
   padding: 15px 0;
   margin: 10px 0;
   text-align: center;
   border-spacing: 0;
+
+  background-color: #ff7675;
+  border: 1px solid #6c6767;
+  border-radius: 10px;
 }
 tr:first-child{
   background-color: #37474f;
@@ -467,8 +472,8 @@ tr:nth-child(even){
   
 }
 tr:nth-child(odd){
-  background-color: #424242;
-  color: #fafafa;
+  background-color: #ffc8c8;
+  color: #242424;
 }
 tr td{
   padding: 15px 0;

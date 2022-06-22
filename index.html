@@ -9,7 +9,6 @@
     <script src="./resources/js/app.js" defer></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.js" integrity="sha512-5m2r+g00HDHnhXQDbRLAfZBwPpPCaK+wPLV6lm8VQ+09ilGdHfXV7IVyKPkLOTfi4vTTUVJnz7ELs7cA87/GMA==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
-
     <title>Covid-19 Statistics App</title>
   </head>
   <body>
@@ -180,16 +179,49 @@
       </svg>
     </button>
   </body>
+
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js';
+     import {
+        getAuth,
+        onAuthStateChanged,
+        signOut
+      } from 'https://www.gstatic.com/firebasejs/9.8.3/firebase-auth.js';
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: 'AIzaSyDflXmgDmQDb_y3sIYkPEOpJAvnGXWWLTg',
+        authDomain: 'covid19-tracker-project-713ab.firebaseapp.com',
+        databaseURL:
+          'https://covid19-tracker-project-713ab-default-rtdb.europe-west1.firebasedatabase.app',
+        projectId: 'covid19-tracker-project-713ab',
+        storageBucket: 'covid19-tracker-project-713ab.appspot.com',
+        messagingSenderId: '1034154994583',
+        appId: '1:1034154994583:web:fb81e2c9eecd26bf7fb2d2',
+      };
+      
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth();
+      const monitorAuthState = async () => {
+        onAuthStateChanged(auth, user => {
+          if (user) { // user can be 1(logged in) or 0(logged out)
+            console.log(user)
+            console.log('logged IN')
+
+            document.querySelector('.logo p').textContent = 'Welcome, ' + user.email;
+            
+            //function to show the page/app
+            // hide the sign up form
+          } else {
+            console.log('logged OUT')
+            //something.innerHTML = 'logged out / you are not logged in'
+          }
+        })
+      }
+
+      monitorAuthState();
+  </script>
 </html>
 
-<!-- <script
-src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
-integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI="
-crossorigin="anonymous"
-></script> 
-
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.js" integrity="sha512-5m2r+g00HDHnhXQDbRLAfZBwPpPCaK+wPLV6lm8VQ+09ilGdHfXV7IVyKPkLOTfi4vTTUVJnz7ELs7cA87/GMA==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
-
--->

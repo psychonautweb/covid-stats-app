@@ -1,4 +1,6 @@
+
 // Target DOM elements ////////////////
+
 
 const latestReportHelper = document.querySelector('.latest-report'); //helper
 
@@ -547,22 +549,22 @@ fetch('https://covid-api.mmediagroup.fr/v1/cases', options)
         let country_name = row.insertCell(0);
         let cases = row.insertCell(1);
         let deaths = row.insertCell(2);
-        let serious_critical = row.insertCell(3);
-        let recovered_per_country = row.insertCell(4);
+        let population = row.insertCell(3);
+        let updated = row.insertCell(4);
         country_name.innerHTML = countries_stat[i][0]; // name
         cases.innerHTML = countries_stat[i][1].All.confirmed;
         deaths.innerHTML = countries_stat[i][1].All.deaths;
 
         // check if target is available to avoid displaying undefined
         if (countries_stat[i][1].All.population) {
-          serious_critical.innerHTML = countries_stat[i][1].All.population; 
+          population.innerHTML = countries_stat[i][1].All.population; 
         } else {
-          serious_critical.innerHTML = 'no data'; // !
+          population.innerHTML = 'no data'; // !
         }
         if (countries_stat[i][1].All.updated) {
-          recovered_per_country.innerHTML = countries_stat[i][1].All.updated;
+          updated.innerHTML = countries_stat[i][1].All.updated;
         } else {
-          recovered_per_country.innerHTML = ''
+          updated.innerHTML = ''
         }
 
       }
