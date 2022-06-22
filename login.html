@@ -76,6 +76,7 @@
         getAuth,
         createUserWithEmailAndPassword,
         signInWithEmailAndPassword,
+        onAuthStateChanged
       } from 'https://www.gstatic.com/firebasejs/9.8.3/firebase-auth.js';
       // TODO: Add SDKs for Firebase products that you want to use
       // https://firebase.google.com/docs/web/setup#available-libraries
@@ -145,6 +146,22 @@
             alert(errorMessage);
           });
       });
+
+      const monitorAuthState = async () => {
+        onAuthStateChanged(auth, user => {
+          if (user) { // user can be 1(logged) or 0(logged out)
+            console.log(user)
+            //function to show the page/app
+            // hide the sign up form
+          } else {
+            console.log('you are not logged in')
+            //something.innerHTML = 'you are not logged in'
+          }
+        })
+      }
+
+      monitorAuthState();
+
     </script>
   </body>
 </html>
