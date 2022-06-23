@@ -105,6 +105,7 @@
       const database = getDatabase(app);
       const auth = getAuth();
 
+      const signUp = document.getElementById('signUp')
       signUp.addEventListener('click', (e) => {
         let email = document.getElementById('email').value;
         let username = document.getElementById('username').value;
@@ -131,6 +132,7 @@
           });
       });
 
+      const login = document.getElementById('login')
       login.addEventListener('click', (e) => {
         let email = document.getElementById('login-email').value;
         let password = document.getElementById('login-password').value;

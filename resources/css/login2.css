@@ -2,12 +2,16 @@
 
 
   .modal-btn {
-    padding: 1rem;
-    color: #464646;
     font-size: 1rem;
-    font-weight: bold;
     cursor: pointer;
+    color: #d12222;
+    padding: 10px;
   }
+
+  .modal-btn:hover {
+    box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.75);
+  }
+
   #modal-toggle {
     display: none;
   }
@@ -25,7 +29,7 @@
     margin: auto;
     left: 0;
     right: 0;
-    height: 550px;
+    height: 50%;
     max-height: 98%;
     width: 70%;
     max-width: 600px;
@@ -78,7 +82,7 @@
   }
   .modal-close-btn svg line {
     stroke-width: 5px;
-    stroke: #00796b;
+    stroke: #d12222;
   }
   .modal-close-btn:hover svg {
     transform: rotate(90deg);
@@ -116,20 +120,20 @@
   .tabs > .table {
     padding: 20px 0;
     text-align: center;
-    border-bottom: solid #00796b 5px;
-    color: #00796b;
+    border-bottom: solid #ff7675 5px;
+    color: #7e6c6c;
     cursor: pointer;
   }
   .tabs > .table span {
     font-weight: 600;
   }
   .tabs > .table:hover {
-    color: #00796b;
-    background: rgba(0, 121, 107, 0.2);
+    color: #b34443;
+    background: #ffe4e4;
   }
   .tabs > .radio:checked + .table {
     color: #fff;
-    background: #00796b;
+    background: #ff7675;
     cursor: auto;
   }
   .tabs > .radio:checked + .table span {
@@ -169,7 +173,7 @@
   .tabs > .tabs-content input[type="submit"] {
     padding: 15px 0;
     width: 100%;
-    background: #00796b;
+    background: #ff7675;
     color: #fff;
     border: none;
     font-size: 18px;

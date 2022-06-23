@@ -26,16 +26,16 @@
       <nav>
         <ul>
           <li>
-            <a href="#about">ABOUT</a>
+            <a href="#about" class="smooth">ABOUT</a>
           </li>
           <li>
-            <a href="#summary">ALL COUNTRIES</a>
+            <a href="#summary" class="smooth">ALL COUNTRIES</a>
           </li>
           <li>
-            <a href="#compare">COMPARE</a>
+            <a href="#compare" class="smooth">COMPARE</a>
           </li>
           <li id="login-logout-btn">
-            <label class="modal-btn" for="modal-toggle">Login</label>
+            <label class="modal-btn" for="modal-toggle">LOGIN</label>
             <input id="modal-toggle" type="checkbox" />
             <label class="modal-backdrop" for="modal-toggle"></label>
             <div class="modal-content">
@@ -98,7 +98,7 @@
                       placeholder="Password"
                       required
                     />
-                    <input id="sign-up-btn" type="submit" value="Sign Up" />
+                    <input id="sign-up-btn" name="signup_submit" type="submit" value="Sign Up" />
                   </form>
                 </div>
               </div>
@@ -306,6 +306,7 @@
 
     const signUp = document.getElementById('sign-up-btn');
     signUp.addEventListener('click', (e) => {
+      e.preventDefault()
       let email = document.getElementById('signup-email').value;
       let username = document.getElementById('signup-username').value;
       let password = document.getElementById('signup-password').value;
@@ -333,6 +334,7 @@
 
     const login = document.getElementById('log-in-btn');
     login.addEventListener('click', (e) => {
+      e.preventDefault()
       let email = document.getElementById('login-email').value;
       let password = document.getElementById('login-password').value;
 
@@ -362,11 +364,13 @@
           console.log(user);
           console.log('user is logged IN yeah');
           const authButton = document.getElementById('login-logout-btn');
-          authButton.innerHTML = `<button id="log-out-btn">Log Out</button>`;
+          authButton.innerHTML = `<button id="log-out-btn">LOG OUT</button>`;
+          
           document
         .getElementById('log-out-btn')
         .addEventListener('click', async () => {
         await signOut(auth);
+        alert('You are logged out!')
         window.location.reload()
       });
         } else {

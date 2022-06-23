@@ -12,6 +12,7 @@
 
 html {
   font-size: 16px;
+  scroll-behavior: smooth;
 }
 
 .hide {
@@ -112,12 +113,14 @@ nav ul li a:hover, #log-out-btn:hover {
 }
 
 #log-out-btn {
+  font-size: 1rem;
   background-color: rgba(255, 255, 255, 0);
   border: 0px;
   text-decoration: none;
     color: #d12222;
     padding: 10px;
 }
+
 
 /*                      MAIN                      */
 
@@ -574,10 +577,11 @@ footer {
 }
 
 .back-to-top-icon {
-  width: 1rem;
-  height: 1rem;
+  width: 2rem;
+  height: 2rem;
   color: #e8e8e8;
 }
+
 
 
 /*             SCREEN WIDTH < 600px               */
