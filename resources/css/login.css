@@ -1,160 +1,184 @@
+/* */
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;500;900&display=swap');
 
-
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
-}
-
-*:focus {
-    background-color: #edf7f0;
-  }
-  
-  body {
-    margin: 0;
-    padding: 0;
-    background: #DDD;
-    font-size: 16px;
-    color: #222;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 500;
+  .modal-btn {
+    font-size: 1rem;
+    cursor: pointer;
+    color: #d12222;
+    padding: 10px;
   }
 
-  main {
-    max-width: 1200px;
-    margin: 0 auto;
+  .modal-btn:hover {
+    box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.75);
   }
 
-  .wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  #modal-toggle {
+    display: none;
   }
-  
-  #login-box, #signup-box {
-    position: relative;
-
-    width: 600px;
-    height: 100vh;
-    background: #FFF;
-    border-radius: 10px;
-    box-shadow: 0 0.5px 2px rgba(0, 0, 0, 0.4);
+  .modal-content, .modal-backdrop {
+    opacity: 0;
+    position: fixed;
+    z-index: -1;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
   }
-  
-  .left {
-    position: absolute;
+  .modal-content {
     top: 0;
+    bottom: 0;
+    margin: auto;
     left: 0;
-    box-sizing: border-box;
-    padding: 40px;
-    width: 300px;
-    height: 400px;
+    right: 0;
+    height: 50%;
+    max-height: 98%;
+    width: 70%;
+    max-width: 600px;
+    text-align: center;
+    transform: translateX(125%);
   }
-  
-  h1 {
-    margin: 0 0 20px 0;
-    font-weight: 900;
-    font-size: 28px;
+  .modal-backdrop {
+    left: 0;
+    top: 0;
+    height: 100%;
+    height: 100vh;
+    width: 100%;
+    width: 100vw;
+    transform: scale(0);
   }
-  
-  input[type="text"],
-  input[type="password"] {
-    display: block;
-    box-sizing: border-box;
-    margin-bottom: 20px;
-    padding: 4px;
-    width: 220px;
-    height: 32px;
-    border: none;
-    border-bottom: 1px solid #AAA;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 500;
-    font-size: 15px;
-    transition: 0.2s ease;
+  #modal-toggle:checked ~ .modal-backdrop {
+    opacity: 1;
+    background-color: rgb(169 182 227 / 65%);
+    z-index: 998;
+    transform: scale(1);
   }
-  
-  input[type="text"]:focus,
-  input[type="password"]:focus {
-    border-bottom: 2px solid #16a085;
-    color: #16a085;
-    transition: 0.2s ease;
+  #modal-toggle:checked ~ .modal-content {
+    opacity: 1;
+    background-color: #fff;
+    overflow-y: auto;
+    overflow-x: hidden;
+    pointer-events: auto;
+    cursor: auto;
+    z-index: 999;
+    transform: translateX(0%);
   }
-  
-  input[type="submit"] {
-    margin-top: 28px;
-    width: 120px;
-    height: 32px;
-    background: #16a085;
-    border: none;
-    border-radius: 2px;
-    color: #FFF;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 500;
-    text-transform: uppercase;
-    transition: 0.1s ease;
+  @media (max-width: 600px) {
+    #modal-toggle:checked ~ .modal-backdrop {
+      opacity: 0;
+   }
+    .modal-content {
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 100vw;
+   }
+  }
+  .modal-close-btn {
+    margin-top: 5px;
+    display: inline-block;
     cursor: pointer;
   }
-  
-  input[type="submit"]:hover,
-  input[type="submit"]:focus {
-    opacity: 0.8;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-    transition: 0.1s ease;
+  .modal-close-btn svg {
+    transition: 0.2s;
   }
-  
-  input[type="submit"]:active {
-    opacity: 1;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
-    transition: 0.1s ease;
+  .modal-close-btn svg line {
+    stroke-width: 5px;
+    stroke: #d12222;
   }
-  
-
-  footer {
-    max-width: 1200px;
-    height: 60px;
-
-    margin: 0 auto;
-    background-color: #fdfdfd;
-
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-}
-
-.footer-container {
-    height: 100%;
+  .modal-close-btn:hover svg {
+    transform: rotate(90deg);
+  }
+  /* BASIC FUNCTIONALITY .tabs */
+  .tabs {
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
     display: flex;
-    justify-content: center;
-}
+    flex-wrap: wrap;
+    margin: 10px 0;
+  }
+  .tabs > .radio {
+    display: none;
+  }
+  .tabs > .radio:checked + .table + .tabs-content {
+    display: block;
+  }
+  .tabs > .table {
+    order: -1;
+    flex-basis: 50%;
+    flex-shrink: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .tabs .tabs-content {
+    width: 100%;
+    display: none;
+  }
+  /* END BASIC FUNCTIONALITY .tabs */
+  /* THEME for .tabs with login & sign-in */
+  .tabs > .table {
+    padding: 20px 0;
+    text-align: center;
+    border-bottom: solid #ff7675 5px;
+    color: #7e6c6c;
+    cursor: pointer;
+  }
+  .tabs > .table span {
+    font-weight: 600;
+  }
+  .tabs > .table:hover {
+    color: #b34443;
+    background: #ffe4e4;
+  }
+  .tabs > .radio:checked + .table {
+    color: #fff;
+    background: #ff7675;
+    cursor: auto;
+  }
+  .tabs > .radio:checked + .table span {
+    display: inline-block;
+    font-weight: 500;
+    transform: scale(1.2);
+    transition: 0.1s;
+  }
+  /* END THEME for .tabs with login & sign-in */
+  /* START style login & sign up */
 
-.copyright {
-    height: 100%;
+  .tabs > .tabs-content form {
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
     display: flex;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    -o-flex-direction: column;
     flex-direction: column;
-    justify-content: center;
-}
-
-.copyright p {
-  font-weight: bold;
-    color: #e3605f;
-}
-
-
-/*             SCREEN WIDTH < 600px               */
-
-@media screen and (max-width: 600px) {
-  .wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
   }
-
-  #login-box, #signup-box {
-    height: 50vh;
+  .tabs > .tabs-content form input {
+    padding: 10px;
+    margin: 15px 0;
+    border: none;
+    border-bottom: solid 1px #00796b;
+    font-size: 18px;
+    letter-spacing: 1px;
+    transition: 0.1s;
   }
-}
-
-
+  .tabs > .tabs-content form input:focus {
+    transform: translateX(10px);
+    outline: none;
+  }
+  .tabs > .tabs-content input[type="submit"] {
+    padding: 15px 0;
+    width: 100%;
+    background: #ff7675;
+    color: #fff;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  .tabs > .tabs-content input[type="submit"]:focus {
+    transform: none;
+  }
