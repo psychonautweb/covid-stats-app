@@ -7,8 +7,14 @@
     <link rel="stylesheet" href="./resources/css/style.css" />
     <script src="./resources/js/countries.js" defer></script>
     <script src="./resources/js/app.js" defer></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.js" integrity="sha512-5m2r+g00HDHnhXQDbRLAfZBwPpPCaK+wPLV6lm8VQ+09ilGdHfXV7IVyKPkLOTfi4vTTUVJnz7ELs7cA87/GMA==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+    <link rel="stylesheet" href="./resources/css/login2.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.js"
+      integrity="sha512-5m2r+g00HDHnhXQDbRLAfZBwPpPCaK+wPLV6lm8VQ+09ilGdHfXV7IVyKPkLOTfi4vTTUVJnz7ELs7cA87/GMA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+      defer
+    ></script>
     <title>Covid-19 Statistics App</title>
   </head>
   <body>
@@ -28,8 +34,75 @@
           <li>
             <a href="#compare">COMPARE</a>
           </li>
-          <li id="login-btn">
-            <a href="./login.html">LOG IN</a>
+          <li id="login-logout-btn">
+            <label class="modal-btn" for="modal-toggle">Login</label>
+            <input id="modal-toggle" type="checkbox" />
+            <label class="modal-backdrop" for="modal-toggle"></label>
+            <div class="modal-content">
+              <label class="modal-close-btn" for="modal-toggle">
+                <svg width="50" height="50">
+                  <line x1="10" y1="10" x2="40" y2="40" />
+                  <line x1="40" y1="10" x2="10" y2="40" />
+                </svg>
+              </label>
+              <div class="tabs">
+                <!--  LOG IN  -->
+                <input
+                  class="radio"
+                  id="tab-1"
+                  name="tabs-name"
+                  type="radio"
+                  checked
+                />
+                <label for="tab-1" class="table"><span>Login</span></label>
+                <div class="tabs-content">
+                  <form action="">
+                    <input
+                      id="login-email"
+                      type="email"
+                      placeholder="Email"
+                      required
+                    />
+                    <input
+                      id="login-password"
+                      type="password"
+                      placeholder="Password"
+                      required
+                    />
+                    <input id="log-in-btn" type="submit" value="Log In" />
+                  </form>
+                </div>
+                <!--  SIGN UP  -->
+                <input class="radio" id="tab-2" name="tabs-name" type="radio" />
+                <label for="tab-2" class="table"><span>Sign up</span></label>
+                <div class="tabs-content">
+                  <form action="">
+                    <input
+                      id="signup-email"
+                      name="email"
+                      type="email"
+                      placeholder="Email"
+                      required
+                    />
+                    <input
+                      id="signup-username"
+                      type="text"
+                      name="username"
+                      placeholder="Username"
+                      required
+                    />
+                    <input
+                      id="signup-password"
+                      type="password"
+                      name="password"
+                      placeholder="Password"
+                      required
+                    />
+                    <input id="sign-up-btn" type="submit" value="Sign Up" />
+                  </form>
+                </div>
+              </div>
+            </div>
           </li>
         </ul>
       </nav>
@@ -83,89 +156,93 @@
       <h1>Compare Statistics</h1>
       <div class="country1">
         <h1 id="selected-country1">Country1</h1>
-          <div class="change-country1">Change</div>
-          <div class="search-country1 hide">
-            <div class="search-box1">
-              <input
-                type="text"
-                id="search-input1"
-                placeholder="Search Country"
-                onkeyup="filterFunction()"
-              />
-              <img
-                class="close1"
-                src="./resources/img/close.svg"
-                alt="close"
-              />
-            </div>
-            <div class="country-list1 hide"></div>
+        <div class="change-country1">Change</div>
+        <div class="search-country1 hide">
+          <div class="search-box1">
+            <input
+              type="text"
+              id="search-input1"
+              placeholder="Search Country"
+              onkeyup="filterFunction()"
+            />
+            <img class="close1" src="./resources/img/close.svg" alt="close" />
           </div>
-          
-          <div class="country-1-total-cases">
-            <div class="country-1-title">Total Cases</div>
-            <div class="country-1-value">0</div>
-            <div class="country-1-new-value">+0</div>
-          </div>
-          <div class="country-1-deaths">
-            <div class="country-1-title">Deaths</div>
-            <div class="country-1-value">0</div>
-            <div class="country-1-new-value">+0</div>
-          </div>
+          <div class="country-list1 hide"></div>
+        </div>
+
+        <div class="country-1-total-cases">
+          <div class="country-1-title">Total Cases</div>
+          <div class="country-1-value">0</div>
+          <div class="country-1-new-value">+0</div>
+        </div>
+        <div class="country-1-deaths">
+          <div class="country-1-title">Deaths</div>
+          <div class="country-1-value">0</div>
+          <div class="country-1-new-value">+0</div>
         </div>
       </div>
 
       <div class="country2">
         <h1 id="selected-country2">Country2</h1>
-          <div class="change-country2">Change</div>
-          <div class="search-country2 hide">
-            <div class="search-box2">
-              <input
-                type="text"
-                id="search-input2"
-                placeholder="Search Country"
-              />
-              <img
-                class="close2"
-                src="./resources/img/close.svg"
-                alt="close"
-              />
-            </div>
-            <div class="country-list2"></div>
+        <div class="change-country2">Change</div>
+        <div class="search-country2 hide">
+          <div class="search-box2">
+            <input
+              type="text"
+              id="search-input2"
+              placeholder="Search Country"
+            />
+            <img class="close2" src="./resources/img/close.svg" alt="close" />
           </div>
+          <div class="country-list2"></div>
+        </div>
 
-          <div class="country-2-total-cases">
-            <div class="country-2-title">Total Cases</div>
-            <div class="country-2-value">0</div>
-            <div class="country-2-new-value">+0</div>
-          </div>
-          <div class="country-2-deaths">
-            <div class="country-2-title">Deaths</div>
-            <div class="country-2-value">0</div>
-            <div class="country-2-new-value">+0</div>
-          </div>
+        <div class="country-2-total-cases">
+          <div class="country-2-title">Total Cases</div>
+          <div class="country-2-value">0</div>
+          <div class="country-2-new-value">+0</div>
+        </div>
+        <div class="country-2-deaths">
+          <div class="country-2-title">Deaths</div>
+          <div class="country-2-value">0</div>
+          <div class="country-2-new-value">+0</div>
+        </div>
       </div>
-
     </aside>
     <section class="section-wrapper">
       <h1 id="summary">Summary - All Countries</h1>
       <button class="show-summary-btn">Show Summary</button>
-        <table id="countries-stats" class="hide">
-          <tr>
-              <th onclick="sortTable(0)">Country</th>
-              <th onclick="sortTable(1)">Cases</th>
-              <th onclick="sortTableNum()">Deaths</th>
-              <th onclick="sortTableNum()">Population</th>
-              <th onclick="sortTableNum()">Updated</th>
-          </tr>
-        </table>
+      <table id="countries-stats" class="hide">
+        <tr>
+          <th onclick="sortTable(0)">Country</th>
+          <th onclick="sortTable(1)">Cases</th>
+          <th onclick="sortTableNum()">Deaths</th>
+          <th onclick="sortTableNum()">Population</th>
+          <th onclick="sortTableNum()">Updated</th>
+        </tr>
+      </table>
     </section>
 
     <section id="about">
       <h1>About</h1>
-      <p>This is a final project done for QStation Javascript&React Development Course. Goal of the project was to build a web app that will allow users to view statistics for Covid-19 pandemics. Requirement of the task was to make a page with global statistics, functionality to switch between different states, comparison between states and overall view of all states with sorting options, user registration and personalized data display for authenticated user based on geolocation, responsive design and use of charts based on different datasets.</p>
-      <p>Project was made by using https://github.com/M-Media-Group/Covid-19-API and https://api.covid19api.com/ APIs for COVID19 data and https://locationiq.com/ for reverse geocoding using Lat and Lon obtained by browser API </p>
+      <p>
+        This is a final project done for QStation Javascript&React Development
+        Course. Goal of the project was to build a web app that will allow users
+        to view statistics for Covid-19 pandemics. Requirement of the task was
+        to make a page with global statistics, functionality to switch between
+        different states, comparison between states and overall view of all
+        states with sorting options, user registration and personalized data
+        display for authenticated user based on geolocation, responsive design
+        and use of charts based on different datasets.
+      </p>
+      <p>
+        Project was made by using https://github.com/M-Media-Group/Covid-19-API
+        and https://api.covid19api.com/ APIs for COVID19 data and
+        https://locationiq.com/ for reverse geocoding using Lat and Lon obtained
+        by browser API
+      </p>
     </section>
-    
+
     <footer>
       <div class="footer-container">
         <div class="copyright">
@@ -174,61 +251,187 @@
       </div>
     </footer>
     <button class="back-to-top hidden">
-      <svg xmlns="http://www.w3.org/2000/svg" class="back-to-top-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12" />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="back-to-top-icon"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M7 11l5-5m0 0l5 5m-5-5v12"
+        />
       </svg>
     </button>
   </body>
 
   <script type="module">
+    // Import the functions you need from the SDKs you need
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js';
-     import {
-        getAuth,
-        onAuthStateChanged,
-        signOut
-      } from 'https://www.gstatic.com/firebasejs/9.8.3/firebase-auth.js';
-      // TODO: Add SDKs for Firebase products that you want to use
-      // https://firebase.google.com/docs/web/setup#available-libraries
+    import {
+      getDatabase,
+      set,
+      ref,
+      update,
+    } from 'https://www.gstatic.com/firebasejs/9.8.3/firebase-database.js';
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      onAuthStateChanged,
+      signOut,
+    } from 'https://www.gstatic.com/firebasejs/9.8.3/firebase-auth.js';
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
 
-      // Your web app's Firebase configuration
-      const firebaseConfig = {
-        apiKey: 'AIzaSyDflXmgDmQDb_y3sIYkPEOpJAvnGXWWLTg',
-        authDomain: 'covid19-tracker-project-713ab.firebaseapp.com',
-        databaseURL:
-          'https://covid19-tracker-project-713ab-default-rtdb.europe-west1.firebasedatabase.app',
-        projectId: 'covid19-tracker-project-713ab',
-        storageBucket: 'covid19-tracker-project-713ab.appspot.com',
-        messagingSenderId: '1034154994583',
-        appId: '1:1034154994583:web:fb81e2c9eecd26bf7fb2d2',
-      };
-      
-      const app = initializeApp(firebaseConfig);
-      const auth = getAuth();
-      const monitorAuthState = async () => {
-        onAuthStateChanged(auth, user => {
-          if (user) { // user can be 1(logged in) or 0(logged out)
-            console.log(user)
-            console.log('logged IN')
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: 'AIzaSyDflXmgDmQDb_y3sIYkPEOpJAvnGXWWLTg',
+      authDomain: 'covid19-tracker-project-713ab.firebaseapp.com',
+      databaseURL:
+        'https://covid19-tracker-project-713ab-default-rtdb.europe-west1.firebasedatabase.app',
+      projectId: 'covid19-tracker-project-713ab',
+      storageBucket: 'covid19-tracker-project-713ab.appspot.com',
+      messagingSenderId: '1034154994583',
+      appId: '1:1034154994583:web:fb81e2c9eecd26bf7fb2d2',
+    };
 
-            document.querySelector('.logo p').textContent = 'Welcome, ' + user.email;
-            document.getElementById('login-btn').innerHTML = `<button id="log-out-btn">LOG OUT</button>`
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth();
 
-            //function to show the page/app
-            // hide the sign up form
-          } else {
-            console.log('logged OUT')
-            //something.innerHTML = 'logged out / you are not logged in'
-          }
+    const signUp = document.getElementById('sign-up-btn');
+    signUp.addEventListener('click', (e) => {
+      let email = document.getElementById('signup-email').value;
+      let username = document.getElementById('signup-username').value;
+      let password = document.getElementById('signup-password').value;
+
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+
+          set(ref(database, 'users/' + user.uid), {
+            username: username,
+            email: email,
+          });
+          alert('usercreated');
+          // change this to clear the user form and make it more appealing
         })
-      }
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
 
-      monitorAuthState();
+          alert(errorMessage);
+          // ..
+        });
+    });
 
-      const logout = document.getElementById('log-out-btn')
-      logout.addEventListener('click', async () => {
-        await signOut(auth)
-      })
+    const login = document.getElementById('log-in-btn');
+    login.addEventListener('click', (e) => {
+      let email = document.getElementById('login-email').value;
+      let password = document.getElementById('login-password').value;
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          const loginDate = new Date();
+          update(ref(database, 'users/' + user.uid), {
+            last_login: loginDate,
+          });
+          // localStorage.setItem('loggedIn', auth);
+          // window.location.href = "./dashboard.html";
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+
+          alert(errorMessage);
+        });
+    });
+
+    const monitorAuthState = async () => {
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          // user can be 1(logged) or 0(logged out)
+          console.log(user);
+          console.log('user is logged IN yeah');
+          const authButton = document.getElementById('login-logout-btn');
+          authButton.innerHTML = `<button id="log-out-btn">Log Out</button>`;
+          document
+        .getElementById('log-out-btn')
+        .addEventListener('click', async () => {
+        await signOut(auth);
+        window.location.reload()
+      });
+        } else {
+          console.log('you are logged out currently');
+          //something.innerHTML = 'logged out / you are not logged in'
+        }
+      });
+    };
+
+
+
+    monitorAuthState();
   </script>
-  <script src="./resources/js/firebase.js"></script>
-</html>
 
+  <!-- <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js';
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signOut,
+    } from 'https://www.gstatic.com/firebasejs/9.8.3/firebase-auth.js';
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: 'AIzaSyDflXmgDmQDb_y3sIYkPEOpJAvnGXWWLTg',
+      authDomain: 'covid19-tracker-project-713ab.firebaseapp.com',
+      databaseURL:
+        'https://covid19-tracker-project-713ab-default-rtdb.europe-west1.firebasedatabase.app',
+      projectId: 'covid19-tracker-project-713ab',
+      storageBucket: 'covid19-tracker-project-713ab.appspot.com',
+      messagingSenderId: '1034154994583',
+      appId: '1:1034154994583:web:fb81e2c9eecd26bf7fb2d2',
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+    const monitorAuthState = async () => {
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          // user can be 1(logged in) or 0(logged out)
+          console.log(user);
+          console.log('logged IN');
+
+          document.querySelector('.logo p').textContent =
+            'Welcome, ' + user.email;
+          document.getElementById(
+            'login-btn'
+          ).innerHTML = `<button id="log-out-btn">LOG OUT</button>`;
+
+          //function to show the page/app
+          // hide the sign up form
+        } else {
+          console.log('logged OUT');
+          //something.innerHTML = 'logged out / you are not logged in'
+        }
+      });
+    };
+
+    monitorAuthState();
+
+    const logout = document.getElementById('log-out-btn');
+    logout.addEventListener('click', async () => {
+      await signOut(auth);
+    });
+  </script> -->
+</html>
