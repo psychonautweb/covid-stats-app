@@ -1,6 +1,7 @@
 
 // Target DOM elements ////////////////
 
+const logInBtn = document.querySelector(`[data-authenticated="false"]`);  // access to login btn with data-authenticated = 'true' - added only if login successfull
 
 const latestReportHelper = document.querySelector('.latest-report'); //helper
 
@@ -59,9 +60,11 @@ const ctx = document.getElementById('axes_line_chart').getContext('2d');
 
 let casesList = [];
 let globalTotalCases = [];
+let globalTotalDeaths = []; // new
 
 let globalNewCasesConfirmed = [];
 let globalNewDeathsConfirmed = [];
+
 
 let deathsList = [];
 let formatedDates = [];
@@ -102,48 +105,49 @@ function addGeoToLocalStorage(countryAbb) {
   localStorage.setItem('key', countryAbb);
 }
 
-// Get users Latitude and Longitude and pass it to Geocoding Api, LocationIq
+// Get users Latitude and Longitude and pass it to Geocoding Api, LocationIq // It happens after succesfull login
 
-// const showCountryCode = (position) => {
-//   let latitude = position.coords.latitude;
-//   let longitude = position.coords.longitude;
+    const showCountryCode = (position) => {
+      let latitude = position.coords.latitude;
+      let longitude = position.coords.longitude;
+    
+      const apiUrl = `https://eu1.locationiq.com/v1/reverse.php?key=pk.5dda2a04ec08d2da359b8da73fb99ed8&lat=${latitude}&lon=${longitude}&format=json`;
+    
+      fetch(apiUrl)
+        .then((response) => response.json())
+        .then((data) => {
+          let countryCode = data.address.country_code.toUpperCase(); // extract country code
+    
+          countryList.forEach((country) => {
+            if (country.code == countryCode) {
+              userCountryFull = country.name; // I used abb here instead of name!
+              userCountryAbb = countryCode;
+            }
+          });
+    
+     if (!localStorage.getItem('key')) {
+     addGeoToLocalStorage(userCountryAbb)
+     }
+    
+          fetchData(userCountryFull, userCountryAbb);
+          //////////
+        });
+    };
+    
+    const getUsersLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showCountryCode);
+      } else {
+        alert('Geolocation is not supported by this browser.');
+      }
+    };
+    
+    // getUsersLocation(); this is run if user is auth (firebase handled >> index.html)
 
-//   const apiUrl = `https://eu1.locationiq.com/v1/reverse.php?key=pk.5dda2a04ec08d2da359b8da73fb99ed8&lat=${latitude}&lon=${longitude}&format=json`;
-
-//   fetch(apiUrl)
-//     .then((response) => response.json())
-//     .then((data) => {
-//       let countryCode = data.address.country_code.toUpperCase(); // extract country code
-
-//       countryList.forEach((country) => {
-//         if (country.code == countryCode) {
-//           userCountryFull = country.name; // I used abb here instead of name!
-//           userCountryAbb = countryCode;
-//         }
-//       });
-
-//  if (!localStorage.getItem('key')) {
-//  addGeoToLocalStorage(userCountryAbb)
-//  }
-
-//       fetchData(userCountryFull, userCountryAbb);
-//       //////////
-//     });
-// };
-
-// const getUsersLocation = () => {
-//   if (navigator.geolocation) {
-//     navigator.geolocation.getCurrentPosition(showCountryCode);
-//   } else {
-//     alert('Geolocation is not supported by this browser.');
-//   }
-// };
-
-// getUsersLocation();
 
 const selectCountryForDataRetrieval = () => {
   //setuj lokaciju na Global kao default lokaciju
-  userCountry = 'global';
+  userCountry = 'Global';
 };
 
 // try using this endpoint for spec countries >>> get last 2 days dynamically by using date method and -2 e.g.
@@ -153,13 +157,13 @@ const selectCountryForDataRetrieval = () => {
 
 /*                API URL AND KEY                 */
 
-const fetchDataOnLoad = () => {
+const fetchDataOnLoad = (country) => {
   countryNameElement.innerHTML = 'Select Country...';
-
+  userCountry = 'Global' //// this is just a temp workaround !!!
   resetList();
 
   const apiFetch = async () => {
-    if (userCountry === 'Global') {
+    if (country === 'Global' || userCountry === 'Global') {
       await fetch(`https://api.covid19api.com/summary`, options)
         .then((response) => {
           return response.json();
@@ -167,6 +171,7 @@ const fetchDataOnLoad = () => {
         .then((data) => {
           globalNewCasesConfirmed.push(data.Global.NewConfirmed);
           globalTotalCases.push(data.Global.TotalConfirmed);
+          console.log(globalTotalCases + ' !!!!!!!!!')
           globalNewDeathsConfirmed.push(data.Global.NewDeaths);
           globalTotalDeaths.push(data.Global.TotalDeaths);
           dateOfData = data.Date;
@@ -191,7 +196,7 @@ const fetchData = (country, code, compareList, countryOneOrTwo) => {
 
     const apiFetch = async (code) => {
       if (userCountry !== 'Global') {
-        if (userCountry === ('USA' || 'US')) {
+        if (userCountry === ('USA' || 'US') || userCountry === ('France' || 'FR')) {
           let todaysDate = new Date().toISOString().slice(0, 10); // YYYY-MM-DD format ... todaysDate.slice(8) - 2 >>> this way I could get last 2 days
   
           await fetch(
@@ -302,6 +307,8 @@ const updateStats = (compareList, countryOneOrTwo) => {
 
   countryNameElement.innerHTML = userCountry;
 
+  console.log(totalCasesCount + ' !!!! ')
+
   totalCasesElement.innerHTML = totalCasesCount.toLocaleString('sr-RS');
   newTotalCasesElement.innerHTML = `+${newConfirmedCasesCount.toLocaleString(
     'sr-RS'
@@ -345,9 +352,8 @@ const updateStats = (compareList, countryOneOrTwo) => {
 
   }
 
-
   // if user is auth //
-  // geolocate user and store the value in local storage
+  // geolocate user and store the value in local storage??
   // update UI with the users state
   // update chart with state info
   // update info cards with state info
@@ -357,7 +363,7 @@ const updateStats = (compareList, countryOneOrTwo) => {
 
 // -------------------------------------------------------------- //
 
-// UPDATE CHART
+// --------------  UPDATE CHART CHART JS -------------------------------------------------------- //
 let my_chart;
 function axesLinearChart() {
   // format dates
@@ -601,4 +607,5 @@ document.addEventListener("scroll", () => {
 });
 
 backToTopButton.addEventListener("click", goToTop);
+
 

@@ -15,9 +15,6 @@ html {
   scroll-behavior: smooth;
 }
 
-.hide {
-  display: none;
-}
 
 body {
   background-color: #ddd;
@@ -163,7 +160,15 @@ main {
   margin: 0.5rem;
 }
 
+.country {
+  display: grid;
+  column-gap: 2rem;
+}
+
 .name {
+  
+  grid-column: 1 / span 3;
+
   border-bottom: 1px solid #ff7675;
   color: #ff7675;
   font-size: 2.2rem;
@@ -171,7 +176,8 @@ main {
   margin-bottom: 1rem;
 }
 
-.change-country {
+
+.change-country, .change-global {
   cursor: pointer;
 
   padding: 0.5rem;
@@ -243,7 +249,8 @@ main {
 
 .search-country {
   position: relative;
-  top: 10px;
+  top: 140px;
+  right: 201px;
 }
 
 .search-box,
@@ -642,4 +649,8 @@ footer {
     align-items: flex-start;
   }
 
+}
+
+.hide {
+  display: none;
 }

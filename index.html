@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./resources/css/style.css" />
     <script src="./resources/js/countries.js" defer></script>
     <script src="./resources/js/app.js" defer></script>
+
     <link rel="stylesheet" href="./resources/css/login.css" />
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.js"
@@ -98,7 +99,12 @@
                       placeholder="Password"
                       required
                     />
-                    <input id="sign-up-btn" name="signup_submit" type="submit" value="Sign Up" />
+                    <input
+                      id="sign-up-btn"
+                      name="signup_submit"
+                      type="submit"
+                      value="Sign Up"
+                    />
                   </form>
                 </div>
               </div>
@@ -114,6 +120,7 @@
           <div class="country">
             <div class="name">Loading...</div>
             <div class="change-country">Change</div>
+            <div class="change-global" onclick="globalStatsHandler()">Global</div>
             <div class="search-country hide">
               <div class="search-box">
                 <input
@@ -167,7 +174,7 @@
             />
             <img class="close1" src="./resources/img/close.svg" alt="close" />
           </div>
-          <div class="country-list1 hide"></div>
+          <div class="country-list1"></div>
         </div>
 
         <div class="country-1-total-cases">
@@ -306,7 +313,7 @@
 
     const signUp = document.getElementById('sign-up-btn');
     signUp.addEventListener('click', (e) => {
-      e.preventDefault()
+      e.preventDefault();
       let email = document.getElementById('signup-email').value;
       let username = document.getElementById('signup-username').value;
       let password = document.getElementById('signup-password').value;
@@ -319,6 +326,7 @@
           set(ref(database, 'users/' + user.uid), {
             username: username,
             email: email,
+            displayName: username
           });
           alert('usercreated');
           // change this to clear the user form and make it more appealing
@@ -334,7 +342,7 @@
 
     const login = document.getElementById('log-in-btn');
     login.addEventListener('click', (e) => {
-      e.preventDefault()
+      e.preventDefault();
       let email = document.getElementById('login-email').value;
       let password = document.getElementById('login-password').value;
 
@@ -360,27 +368,34 @@
     const monitorAuthState = async () => {
       onAuthStateChanged(auth, (user) => {
         if (user) {
-          // user can be 1(logged) or 0(logged out)
-          console.log(user);
+          // user can be 1(logged in) or 0(logged out)
+          console.log(auth);
           console.log('user is logged IN yeah');
           const authButton = document.getElementById('login-logout-btn');
           authButton.innerHTML = `<button id="log-out-btn">LOG OUT</button>`;
-          
-          document
-        .getElementById('log-out-btn')
-        .addEventListener('click', async () => {
-        await signOut(auth);
-        alert('You are logged out!')
-        window.location.reload()
-      });
+          document.querySelector('.logo p').textContent = `Welcome, ${user.email}` // why is this NULL if displayName is set??
+          getUsersLocation(); // if user is auth we run function to get it's location (from app.js)
+
+          //hide unnecessary sections // or remove from DOM?
+          // document.getElementById('log-in-btn').dataset.authenticated = 'true'
+
+          document.getElementById('compare').classList.toggle('hide')
+          document.querySelector('.section-wrapper').classList.toggle('hide')
+          document.body.children[0].children[1].children[0].children[1].classList.toggle('hide') // DOM traverse technique (nav item)
+          document.body.children[0].children[1].children[0].children[1].nextElementSibling.classList.toggle('hide') // DOM traverse technique (nav item)
+          //
+          document.getElementById('log-out-btn').addEventListener('click', async () => {
+              await signOut(auth);
+              alert('You are logged out!');
+              window.location.reload();
+
+            });
         } else {
           console.log('you are logged out currently');
           //something.innerHTML = 'logged out / you are not logged in'
         }
       });
     };
-
-
 
     monitorAuthState();
   </script>

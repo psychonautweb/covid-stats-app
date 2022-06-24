@@ -1,3 +1,4 @@
+
 // ALL COUNTRY NAMES WITH THEIR ISO CODE --------------- //////////////////
 let countryList = [
   { name: 'USA', code: 'US' },
@@ -211,6 +212,7 @@ const countryElement = document.querySelector('.country'); //only for optimizing
 const searchCountryElement = countryElement.querySelector('.search-country');
 const countryListElement = countryElement.querySelector('.country-list');
 const changeCountryBtnElement = countryElement.querySelector('.change-country');
+const globalStatsBtnElement = countryElement.querySelector('.change-global');
 const closeListBtnElement = countryElement.querySelector('.close');
 
 const input = document.getElementById('search-input');
@@ -379,29 +381,6 @@ input.addEventListener('input', function () {
 inputFieldHandler(input1, 1)
 inputFieldHandler(input2, 2)
 
-// input1.addEventListener('input', function () {
-//   let value = input1.value.toUpperCase();
-//   countryList.forEach((country) => {
-//     if (country.name.toUpperCase().startsWith(value)) {
-//       document.querySelector(`[data-country1-id="${country.name}"]`).classList.remove('hide');
-//     } else {
-//       document.querySelector(`[data-country1-id="${country.name}"]`).classList.add('hide');
-//     }
-//   });
-// });
-
-// input2.addEventListener('input', function () {
-//   let value = input2.value.toUpperCase();
-//   countryList.forEach((country) => {
-//     if (country.name.toUpperCase().startsWith(value)) {
-//       document.querySelector(`[data-country2-id="${country.name}"]`).classList.remove('hide');
-//     } else {
-//       document.querySelector(`[data-country2-id="${country.name}"]`).classList.add('hide');
-//     }
-//   });
-// });
-
-
 
 // Reset Country List - show all countries --------------- //////////////////
 
@@ -420,7 +399,9 @@ document.getElementById('selected-country1').textContent = country
 
 }
 
-
+function globalStatsHandler () {
+  globalStatsBtnElement.addEventListener('click', fetchDataOnLoad('Global'))
+}
 
 
 
@@ -446,3 +427,4 @@ function filterFunction() {
     }
   }
 }
+
