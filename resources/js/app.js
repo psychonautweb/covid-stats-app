@@ -583,11 +583,9 @@ fetch('https://covid-api.mmediagroup.fr/v1/cases', options)
 
 
 
-////
+//// Table sorting // tablesort.min.js
 document.querySelector('#countries-stats').tsortable()
-
-
-///
+// https://github.com/oleksavyshnivsky/tablesort
 
 // ----------------- BACK TO TOP BUTTON ------------ ////////////
 
