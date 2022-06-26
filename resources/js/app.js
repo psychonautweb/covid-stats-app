@@ -50,6 +50,7 @@ const newDeathCasesCountry2Element = document.querySelector(
 // Section Summary Lower Part TABLE
 
 const table = document.getElementById('countries-stats');
+const tbody = document.getElementById('tbody')
 
 //select canvas for chartJS
 const ctx = document.getElementById('axes_line_chart').getContext('2d');
@@ -461,73 +462,73 @@ function formatDate(dateString) {
 
 //Sort Table A - Z
 
-function sortTable(n) {
-  let tableCountries,
-    rows,
-    switching,
-    i,
-    x,
-    y,
-    shouldSwitch,
-    dir,
-    switchcount = 0;
-  tableCountries = document.getElementById('countries-stats');
-  switching = true;
-  // Set the sorting direction to ascending:
-  dir = 'asc';
-  /* Make a loop that will continue until
-  no switching has been done: */
-  while (switching) {
-    // Start by saying: no switching is done:
-    switching = false;
-    rows = tableCountries.rows;
-    /* Loop through all table rows (except the
-    first, which contains table headers): */
-    for (i = 1; i < rows.length - 1; i++) {
-      // Start by saying there should be no switching:
-      shouldSwitch = false;
-      /* Get the two elements you want to compare,
-      one from current row and one from the next: */
-      x = rows[i].getElementsByTagName('TD')[n];
-      y = rows[i + 1].getElementsByTagName('TD')[n];
-      /* Check if the two rows should switch place,
-      based on the direction, asc or desc: */
-      if (dir == 'asc') {
-        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-          // If so, mark as a switch and break the loop:
-          shouldSwitch = true;
-          break;
-        }
-      } else if (dir == 'desc') {
-        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-          // If so, mark as a switch and break the loop:
-          shouldSwitch = true;
-          break;
-        }
-      }
-    }
-    if (shouldSwitch) {
-      /* If a switch has been marked, make the switch
-      and mark that a switch has been done: */
-      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-      switching = true;
-      // Each time a switch is done, increase this count by 1:
-      switchcount++;
-    } else {
-      /* If no switching has been done AND the direction is "asc",
-      set the direction to "desc" and run the while loop again. */
-      if (switchcount == 0 && dir == 'asc') {
-        dir = 'desc';
-        switching = true;
-      }
-    }
-  }
-}
+// function sortTable(n) {
+//   let tableCountries,
+//     rows,
+//     switching,
+//     i,
+//     x,
+//     y,
+//     shouldSwitch,
+//     dir,
+//     switchcount = 0;
+//   tableCountries = document.getElementById('countries-stats');
+//   switching = true;
+//   // Set the sorting direction to ascending:
+//   dir = 'asc';
+//   /* Make a loop that will continue until
+//   no switching has been done: */
+//   while (switching) {
+//     // Start by saying: no switching is done:
+//     switching = false;
+//     rows = tableCountries.rows;
+//     /* Loop through all table rows (except the
+//     first, which contains table headers): */
+//     for (i = 1; i < rows.length - 1; i++) {
+//       // Start by saying there should be no switching:
+//       shouldSwitch = false;
+//       /* Get the two elements you want to compare,
+//       one from current row and one from the next: */
+//       x = rows[i].getElementsByTagName('TD')[n];
+//       y = rows[i + 1].getElementsByTagName('TD')[n];
+//       /* Check if the two rows should switch place,
+//       based on the direction, asc or desc: */
+//       if (dir == 'asc') {
+//         if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+//           // If so, mark as a switch and break the loop:
+//           shouldSwitch = true;
+//           break;
+//         }
+//       } else if (dir == 'desc') {
+//         if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+//           // If so, mark as a switch and break the loop:
+//           shouldSwitch = true;
+//           break;
+//         }
+//       }
+//     }
+//     if (shouldSwitch) {
+//       /* If a switch has been marked, make the switch
+//       and mark that a switch has been done: */
+//       rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+//       switching = true;
+//       // Each time a switch is done, increase this count by 1:
+//       switchcount++;
+//     } else {
+//       /* If no switching has been done AND the direction is "asc",
+//       set the direction to "desc" and run the while loop again. */
+//       if (switchcount == 0 && dir == 'asc') {
+//         dir = 'desc';
+//         switching = true;
+//       }
+//     }
+//   }
+// }
 
-//Sort Table Numeric
+// //Sort Table Numeric
 
 
-// Table Update --------------- //////////////////
+// // Table Update --------------- //////////////////
 
 //used DOM drilling as a practice here // otherwise queryselector
 const showSummaryButton = document.body.children[3].children[1];
@@ -551,7 +552,7 @@ fetch('https://covid-api.mmediagroup.fr/v1/cases', options)
 
       for (let i = 0; i < countries_stat.length; i++) {
         //we will start by inserting the new rows inside our table
-        let row = table.insertRow(i + 1);
+        let row = tbody.insertRow(i);
         let country_name = row.insertCell(0);
         let cases = row.insertCell(1);
         let deaths = row.insertCell(2);
@@ -565,20 +566,28 @@ fetch('https://covid-api.mmediagroup.fr/v1/cases', options)
         if (countries_stat[i][1].All.population) {
           population.innerHTML = countries_stat[i][1].All.population; 
         } else {
-          population.innerHTML = 'no data'; // !
+          population.innerHTML = '0'; // !
         }
         if (countries_stat[i][1].All.updated) {
           updated.innerHTML = countries_stat[i][1].All.updated;
         } else {
-          updated.innerHTML = ''
+          updated.innerHTML = '0'
         }
 
       }
     })
-  )
+    )
   .catch((err) => {
     console.log(err);
   });
+
+
+
+////
+document.querySelector('#countries-stats').tsortable()
+
+
+///
 
 // ----------------- BACK TO TOP BUTTON ------------ ////////////
 

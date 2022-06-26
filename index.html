@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./resources/css/style.css" />
+    <script src="./resources/js/tablesort.min.js" defer></script>
     <script src="./resources/js/countries.js" defer></script>
     <script src="./resources/js/app.js" defer></script>
-
     <link rel="stylesheet" href="./resources/css/login.css" />
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.js"
@@ -220,13 +220,18 @@
       <h1 id="summary">Summary - All Countries</h1>
       <button class="show-summary-btn">Show Summary</button>
       <table id="countries-stats" class="hide">
-        <tr>
-          <th onclick="sortTable(0)">Country</th>
-          <th onclick="sortTable(1)">Cases</th>
-          <th onclick="sortTableNum()">Deaths</th>
-          <th onclick="sortTableNum()">Population</th>
-          <th onclick="sortTableNum()">Updated</th>
-        </tr>
+        <thead>
+          <tr>
+            <th data-sort="string">Country</th>
+            <th data-sort="int">Cases</th>
+            <th data-sort="int">Deaths</th>
+            <th data-sort="int">Population</th>
+            <th data-sort="date">Updated</th>
+          </tr>
+        </thead>
+        <tbody id="tbody">
+
+        </tbody>
       </table>
     </section>
 
