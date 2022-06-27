@@ -17,7 +17,7 @@ html {
 
 
 body {
-  background-color: #ddd;
+  background-color: #ededed;
 }
 
 aside {
@@ -100,15 +100,15 @@ nav ul li a {
   text-decoration: none;
   color: #d12222;
   padding: 10px;
+
 }
 
 nav ul li a:hover,
 #log-out-btn:hover {
 
-
-  box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.75);
-  -webkit-box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.75);
+  box-shadow: inset 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: inset 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: inset 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
 }
 
 #log-out-btn {
@@ -119,6 +119,8 @@ nav ul li a:hover,
   color: #d12222;
   padding: 10px;
 }
+
+
 
 
 /*                      MAIN                      */
@@ -132,7 +134,7 @@ main {
 
 .stats {
   width: 100%;
-  background-color: #f1fff3;
+  background-color: #f7f7f7;
   /* background-image: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url('../img/bg.jpg');
   background-size: cover; */
 }
@@ -166,7 +168,7 @@ main {
 }
 
 .name {
-  
+
   grid-column: 1 / span 3;
 
   border-bottom: 1px solid #ff7675;
@@ -177,7 +179,8 @@ main {
 }
 
 
-.change-country, .change-global {
+.change-country,
+.change-global {
   cursor: pointer;
 
   padding: 0.5rem;
@@ -214,11 +217,11 @@ main {
   height: 150px;
   background-color: #fdfdfd;
   padding: 1rem;
-  border: 1px solid #ffe4e4;
+  border: 1px solid #7e6c6c;
   border-radius: 8px;
-  box-shadow: 0px 0px 2px 1px rgb(255 118 117 / 34%);
-  -webkit-box-shadow: 0px 0px 2px 1px rgb(255 118 117 / 34%);
-  -moz-box-shadow: 0px 0px 2px 1px rgb(255 118 117 / 34%);
+  box-shadow: 0px 0px 2px 1px rgba(163, 162, 162, 0.34);
+  -webkit-box-shadow: 0px 0px 2px 1px rgba(163, 162, 162, 0.34);
+  -moz-box-shadow: 0px 0px 2px 1px rgba(163, 162, 162, 0.34);
   overflow: hidden;
 }
 
@@ -364,7 +367,7 @@ main {
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
-  background-color: #f1fff3;
+  background-color: #f7f7f7;
 }
 
 .compare-countries>h1 {
@@ -384,9 +387,9 @@ main {
   flex: 1 0 0%;
   padding: 1rem;
   height: 500px;
-  box-shadow: 0px 0px 2px 1px rgb(255 118 117 / 34%);
+  /* box-shadow: 0px 0px 2px 1px rgb(255 118 117 / 34%);
   -webkit-box-shadow: 0px 0px 2px 1px rgb(255 118 117 / 34%);
-  -moz-box-shadow: 0px 0px 2px 1px rgb(255 118 117 / 34%);
+  -moz-box-shadow: 0px 0px 2px 1px rgb(255 118 117 / 34%); */
   overflow: hidden;
 
   width: 100%;
@@ -460,11 +463,13 @@ main {
   height: 150px;
   background-color: #fdfdfd;
   padding: 1rem;
-  border: 1px solid #ffe4e4;
+  margin: 1rem;
+
+  border: 1px solid #7e6c6c;
   border-radius: 8px;
-  box-shadow: 0px 0px 2px 1px rgb(255 118 117 / 34%);
-  -webkit-box-shadow: 0px 0px 2px 1px rgb(255 118 117 / 34%);
-  -moz-box-shadow: 0px 0px 2px 1px rgb(255 118 117 / 34%);
+  box-shadow: 0px 0px 2px 1px rgba(163, 162, 162, 0.34);
+  -webkit-box-shadow: 0px 0px 2px 1px rgba(163, 162, 162, 0.34);
+  -moz-box-shadow: 0px 0px 2px 1px rgba(163, 162, 162, 0.34);
   overflow: hidden;
 }
 
@@ -475,7 +480,7 @@ main {
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
-  background-color: #f1fff3;
+  background-color: #f7f7f7;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -539,9 +544,10 @@ tr td {
 
 .show-summary-btn {
   cursor: pointer;
-
+  margin-top: 1rem;
   padding: 1rem;
   width: fit-content;
+
   border: 1px solid #f3f2f2;
   border-radius: 8px;
   background-color: #ff7675;
@@ -553,9 +559,11 @@ tr td {
 [data-sort]:hover {
   cursor: pointer;
 }
+
 [data-dir="asc"]:after {
   content: ' ↗';
 }
+
 [data-dir="desc"]:after {
   content: ' ↘';
 }
@@ -569,7 +577,7 @@ tr td {
   height: 100%;
   margin: 0 auto;
   padding-top: 2rem;
-  background-color: #f1fff3;
+  background-color: #f7f7f7;
 }
 
 #about>h1 {
@@ -650,6 +658,23 @@ footer {
   color: #e8e8e8;
 }
 
+
+/*----------------------------------- MEDIA QUERIES ----------------------------------------------- */
+
+/* 955px */
+
+@media screen and (max-width: 955px) {
+
+  .latest-report {
+    display: flex;
+  }
+
+  .total-cases .value,
+  .deaths .value,
+  .global .value {
+    flex-wrap: wrap;
+  }
+}
 
 
 /*             SCREEN WIDTH < 600px               */
