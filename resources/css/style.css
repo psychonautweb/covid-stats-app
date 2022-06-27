@@ -252,7 +252,7 @@ main {
 
 .search-country {
   position: relative;
-  top: 140px;
+  top: 40px;
   right: 201px;
 }
 
@@ -511,8 +511,8 @@ main {
   border-radius: 10px;
 }
 
-tr:first-child {
-  background-color: #37474f;
+#thead-row{
+  background-color: #ff7675;
   color: #fafafa;
   text-transform: uppercase;
 }
@@ -532,14 +532,12 @@ tr:nth-child(even) {
 }
 
 tr:nth-child(odd) {
-  background-color: #ffc8c8;
+  background-color: #ededed; /* #ffc8c8 */
   color: #242424;
 }
 
 tr td {
   padding: 15px 0;
-
-
 }
 
 .show-summary-btn {
