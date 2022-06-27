@@ -20,9 +20,9 @@ body {
   background-color: #ededed;
 }
 
-aside {
+/* aside {
   height: 100vh;
-}
+} */
 
 /* main {
   height: 100vh;
@@ -384,7 +384,7 @@ main {
 
 .country1,
 .country2 {
-  flex: 1 0 0%;
+  flex-basis: 45%;
   padding: 1rem;
   height: 500px;
   /* box-shadow: 0px 0px 2px 1px rgb(255 118 117 / 34%);
@@ -511,7 +511,7 @@ main {
   border-radius: 10px;
 }
 
-#thead-row{
+#thead-row {
   background-color: #ff7675;
   color: #fafafa;
   text-transform: uppercase;
@@ -532,7 +532,8 @@ tr:nth-child(even) {
 }
 
 tr:nth-child(odd) {
-  background-color: #ededed; /* #ffc8c8 */
+  background-color: #ededed;
+  /* #ffc8c8 */
   color: #242424;
 }
 
@@ -659,18 +660,55 @@ footer {
 
 /*----------------------------------- MEDIA QUERIES ----------------------------------------------- */
 
-/* 955px */
+/*      Screen width < 955px                 */
 
 @media screen and (max-width: 955px) {
 
   .latest-report {
     display: flex;
+    flex-direction: column;
+    text-align: center;
   }
 
   .total-cases .value,
   .deaths .value,
   .global .value {
     flex-wrap: wrap;
+  }
+
+  .country,
+  .total-cases,
+  .global,
+  .deaths {
+    width: 80%;
+    display: block;
+  }
+
+  .change-country,
+  .change-global {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .search-country {
+    width: 100%;
+    top: 0;
+    right: 0;
+  }
+
+  .country-list,
+  .country-list1,
+  .country-list2 {
+    width: 100%;
+  }
+
+  .search-box,
+  .search-box1,
+  .search-box2,
+  .search-input,
+  .search-input1,
+  .search-input2 {
+    width: 100%;
   }
 }
 
@@ -681,7 +719,19 @@ footer {
   .latest-report {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+  }
+
+  .country1,
+  .country2 {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-basis: auto;
+  }
+
+  #countries-stats {
+    font-size: small;
   }
 
 }
