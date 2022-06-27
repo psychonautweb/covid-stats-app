@@ -184,3 +184,16 @@
   .tabs > .tabs-content input[type="submit"]:focus {
     transform: none;
   }
+
+  @media screen and (max-width: 600px) {
+    .modal-btn {
+      font-size: smaller;
+    }
+    .modal-btn:hover {
+      color: #242424;
+      box-shadow: none;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      list-style: circle;
+    }
+  }

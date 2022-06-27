@@ -720,6 +720,16 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .country,
+  .total-cases,
+  .global,
+  .deaths {
+    width: 100%;
+    display: block;
   }
 
   .country1,
@@ -733,6 +743,32 @@ footer {
   #countries-stats {
     font-size: small;
   }
+
+  header {
+    height: fit-content;
+  }
+  nav ul {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: center;
+  }
+
+  nav ul li {
+   list-style: circle;
+  }
+
+  nav a {
+    font-size: smaller;
+  }
+
+  nav ul li a:hover,
+#log-out-btn:hover {
+  color: #242424;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+}
 
 }
 
