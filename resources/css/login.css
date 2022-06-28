@@ -187,7 +187,7 @@
 
   @media screen and (max-width: 600px) {
     .modal-btn {
-      font-size: smaller;
+      font-size: 1.2rem;
     }
     .modal-btn:hover {
       color: #242424;

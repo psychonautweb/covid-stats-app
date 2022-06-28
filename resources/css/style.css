@@ -757,7 +757,7 @@ footer {
   }
 
   nav ul li {
-   list-style: circle;
+   padding-top: 0.5rem;
   }
 
   nav ul li:hover {
@@ -765,7 +765,7 @@ footer {
    }
 
   nav a {
-    font-size: smaller;
+    font-size: 1.2rem;
   }
 
   nav ul li a:hover,
