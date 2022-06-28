@@ -517,9 +517,6 @@ main {
   text-transform: uppercase;
 }
 
-#thead-row:hover {
-  color: ;
-}
 
 th {
   cursor: pointer;
@@ -561,7 +558,7 @@ tr td {
 
 [data-sort]:hover {
   cursor: pointer;
-  color: #e9e4e4;
+  color: #2e2222;
 }
 
 [data-dir="asc"]:after {
@@ -762,6 +759,10 @@ footer {
   nav ul li {
    list-style: circle;
   }
+
+  nav ul li:hover {
+    list-style: disc;
+   }
 
   nav a {
     font-size: smaller;
