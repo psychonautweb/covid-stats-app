@@ -278,33 +278,6 @@ let numOfUlLists = 3;
 createCountryList();
 
 
-// const createCountryList1 = () => {
-//   const numOfCountries = countryList.length;
-
-//   let i = 0;
-//   let ulListId;
-
-//   countryList.forEach((country, index) => {
-//     if (index % Math.ceil(numOfCountries / numOfUlLists) == 0) {
-//       ulListId = `compare-list-${i}`;
-//       countryListElement1.innerHTML += `<ul id='${ulListId}'></ul>`;
-//       i++;
-//     }
-
-//     document.getElementById(`${ulListId}`).innerHTML += `
-//     <li onclick="updateCountryForCompare1('${country.name}')" data-country-id="${country.name}">
-// ${country.name}
-//     </li>
-//     `;
-//   });
-// };
-
-
-
-// // let numOfUlLists = 3;
-// createCountryList1();
-
-
 //Show Country List on click of a button --------------- //////////////////
 
 changeCountryBtnElement.addEventListener('click', function () {
