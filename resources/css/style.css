@@ -42,6 +42,11 @@ body {
   }
 }
 
+/* Buttons hover */
+.main-btn:hover {
+  background-color: #f16362;
+}
+
 /*                    HEADER                      */
 
 header {
@@ -106,6 +111,9 @@ nav ul li a {
 nav ul li a:hover,
 #log-out-btn:hover {
 
+  position: relative;
+  top: 1px;
+  color: #a00606;
   box-shadow: inset 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: inset 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: inset 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
@@ -749,6 +757,7 @@ footer {
   header {
     height: fit-content;
   }
+
   nav ul {
     flex-direction: column;
     justify-content: center;
@@ -757,24 +766,24 @@ footer {
   }
 
   nav ul li {
-   padding-top: 0.5rem;
+    padding-top: 0.5rem;
   }
 
   nav ul li:hover {
     list-style: disc;
-   }
+  }
 
   nav a {
     font-size: 1.2rem;
   }
 
   nav ul li a:hover,
-#log-out-btn:hover {
-  color: #242424;
-  box-shadow: none;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-}
+  #log-out-btn:hover {
+    color: #242424;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+  }
 
 }
 
