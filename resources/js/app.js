@@ -1,4 +1,3 @@
-
 // Target DOM elements ////////////////
 
 const latestReportHelper = document.querySelector('.latest-report'); //helper
@@ -48,7 +47,7 @@ const newDeathCasesCountry2Element = document.querySelector(
 // Section Summary Lower Part TABLE
 
 const table = document.getElementById('countries-stats');
-const tbody = document.getElementById('tbody')
+const tbody = document.getElementById('tbody');
 
 //select canvas for chartJS
 const ctx = document.getElementById('axes_line_chart').getContext('2d');
@@ -63,7 +62,6 @@ let globalTotalDeaths = []; // new
 
 let globalNewCasesConfirmed = [];
 let globalNewDeathsConfirmed = [];
-
 
 let deathsList = [];
 let formatedDates = [];
@@ -106,43 +104,42 @@ function addGeoToLocalStorage(countryAbb) {
 
 // Get users Latitude and Longitude and pass it to Geocoding Api, LocationIq // It happens after succesfull login
 
-    const showCountryCode = (position) => {
-      let latitude = position.coords.latitude;
-      let longitude = position.coords.longitude;
-    
-      const apiUrl = `https://eu1.locationiq.com/v1/reverse.php?key=pk.5dda2a04ec08d2da359b8da73fb99ed8&lat=${latitude}&lon=${longitude}&format=json`;
-    
-      fetch(apiUrl)
-        .then((response) => response.json())
-        .then((data) => {
-          let countryCode = data.address.country_code.toUpperCase(); // extract country code
-    
-          countryList.forEach((country) => {
-            if (country.code == countryCode) {
-              userCountryFull = country.name; // I used abb here instead of name!
-              userCountryAbb = countryCode;
-            }
-          });
-    
-     if (!localStorage.getItem('key')) {
-     addGeoToLocalStorage(userCountryAbb)
-     }
-    
-          fetchData(userCountryFull, userCountryAbb);
-          //////////
-        });
-    };
-    
-    const getUsersLocation = () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showCountryCode);
-      } else {
-        alert('Geolocation is not supported by this browser.');
-      }
-    };
-    
-    // getUsersLocation(); this is run if user is auth (firebase handled >> index.html)
+const showCountryCode = (position) => {
+  let latitude = position.coords.latitude;
+  let longitude = position.coords.longitude;
 
+  const apiUrl = `https://eu1.locationiq.com/v1/reverse.php?key=pk.5dda2a04ec08d2da359b8da73fb99ed8&lat=${latitude}&lon=${longitude}&format=json`;
+
+  fetch(apiUrl)
+    .then((response) => response.json())
+    .then((data) => {
+      let countryCode = data.address.country_code.toUpperCase(); // extract country code
+
+      countryList.forEach((country) => {
+        if (country.code == countryCode) {
+          userCountryFull = country.name; // I used abb here instead of name!
+          userCountryAbb = countryCode;
+        }
+      });
+
+      if (!localStorage.getItem('key')) {
+        addGeoToLocalStorage(userCountryAbb);
+      }
+
+      fetchData(userCountryFull, userCountryAbb);
+      //////////
+    });
+};
+
+const getUsersLocation = () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showCountryCode);
+  } else {
+    alert('Geolocation is not supported by this browser.');
+  }
+};
+
+// getUsersLocation(); this is run if user is auth (firebase handled >> index.html)
 
 const selectCountryForDataRetrieval = () => {
   //setuj lokaciju na Global kao default lokaciju
@@ -158,7 +155,7 @@ const selectCountryForDataRetrieval = () => {
 
 const fetchDataOnLoad = (country) => {
   countryNameElement.innerHTML = 'Select Country...';
-  userCountry = 'Global' //// this is just a temp workaround !!!
+  userCountry = 'Global'; //// this is just a temp workaround !!!
   resetList();
 
   const apiFetch = async () => {
@@ -170,7 +167,7 @@ const fetchDataOnLoad = (country) => {
         .then((data) => {
           globalNewCasesConfirmed.push(data.Global.NewConfirmed);
           globalTotalCases.push(data.Global.TotalConfirmed);
-          console.log(globalTotalCases + ' !!!!!!!!!')
+          console.log(globalTotalCases + ' !!!!!!!!!');
           globalNewDeathsConfirmed.push(data.Global.NewDeaths);
           globalTotalDeaths.push(data.Global.TotalDeaths);
           dateOfData = data.Date;
@@ -193,73 +190,71 @@ const fetchData = (country, code, compareList, countryOneOrTwo) => {
   // this condition updates the data for comparison table based on passed compareList argument
   // this updates data for  chart and main stats table on the top
 
-    const apiFetch = async (code) => {
-      if (userCountry !== 'Global') {
-        if (userCountry === ('USA' || 'US') || userCountry === ('France' || 'FR')) {
-          let todaysDate = new Date().toISOString().slice(0, 10); // YYYY-MM-DD format ... todaysDate.slice(8) - 2 >>> this way I could get last 2 days
-  
-          await fetch(
-            `https://api.covid19api.com/total/country/${code}/status/confirmed?from=2022-01-01T00:00:00Z&to=${todaysDate}`,
-            options
-          )
-            .then((response) => {
-              return response.json();
-            })
-            .then((data) => {
-              data.forEach((entry) => {
-                dates.push(entry.Date);
-                casesList.push(entry.Cases);
-              });
-              dateOfData = data[data.length - 1].Date;
+  const apiFetch = async (code) => {
+    if (userCountry !== 'Global') {
+      if (
+        userCountry === ('USA' || 'US') ||
+        userCountry === ('France' || 'FR')
+      ) {
+        let todaysDate = new Date().toISOString().slice(0, 10); // YYYY-MM-DD format ... todaysDate.slice(8) - 2 >>> this way I could get last 2 days
+
+        await fetch(
+          `https://api.covid19api.com/total/country/${code}/status/confirmed?from=2022-01-01T00:00:00Z&to=${todaysDate}`,
+          options
+        )
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            data.forEach((entry) => {
+              dates.push(entry.Date);
+              casesList.push(entry.Cases);
             });
-  
-          await fetch(
-            `https://api.covid19api.com/total/country/${code}/status/deaths?from=2022-01-01T00:00:00Z&to=${todaysDate}`,
-            options
-          )
-            .then((response) => {
-              return response.json();
-            })
-            .then((data) => {
-              data.forEach((entry) => {
-                deathsList.push(entry.Cases);
-              });
+            dateOfData = data[data.length - 1].Date;
+          });
+
+        await fetch(
+          `https://api.covid19api.com/total/country/${code}/status/deaths?from=2022-01-01T00:00:00Z&to=${todaysDate}`,
+          options
+        )
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            data.forEach((entry) => {
+              deathsList.push(entry.Cases);
             });
-        } else {
-          await fetch(
-            `https://api.covid19api.com/total/dayone/country/${code}/status/confirmed`,
-            options
-          )
-            .then((response) => {
-              return response.json();
-            })
-            .then((data) => {
-              data.forEach((entry) => {
-                dates.push(entry.Date);
-                casesList.push(entry.Cases);
-              });
-              dateOfData = data[data.length - 1].Date;
+          });
+      } else {
+        await fetch(
+          `https://api.covid19api.com/total/dayone/country/${code}/status/confirmed`,
+          options
+        )
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            data.forEach((entry) => {
+              dates.push(entry.Date);
+              casesList.push(entry.Cases);
             });
-  
-          await fetch(
-            `https://api.covid19api.com/total/dayone/country/${code}/status/deaths`,
-            options
-          )
-            .then((response) => {
-              return response.json();
-            })
-            .then((data) => {
-              data.forEach((entry) => {
-                deathsList.push(entry.Cases);
-              });
+            dateOfData = data[data.length - 1].Date;
+          });
+
+        await fetch(
+          `https://api.covid19api.com/total/dayone/country/${code}/status/deaths`,
+          options
+        )
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            data.forEach((entry) => {
+              deathsList.push(entry.Cases);
             });
-        }
+          });
       }
-  
-
-
-    // ako nije global run this // ovo cemo izvrsiti nakon getLocation
-    // samo ako je loggedIn ili ako je manuelno selektovan
+    }
 
     updateUi(compareList, countryOneOrTwo);
   };
@@ -282,7 +277,7 @@ const updateStats = (compareList, countryOneOrTwo) => {
     dateFormat,
     globalPopulationCount;
 
-    console.log(compareList)
+  console.log(compareList);
 
   if (userCountry !== 'Global') {
     totalCasesCount = casesList[casesList.length - 1];
@@ -306,7 +301,7 @@ const updateStats = (compareList, countryOneOrTwo) => {
 
   countryNameElement.innerHTML = userCountry;
 
-  console.log(totalCasesCount + ' !!!! ')
+  console.log(totalCasesCount + ' !!!! ');
 
   totalCasesElement.innerHTML = totalCasesCount.toLocaleString('sr-RS');
   newTotalCasesElement.innerHTML = `+${newConfirmedCasesCount.toLocaleString(
@@ -326,7 +321,8 @@ const updateStats = (compareList, countryOneOrTwo) => {
   if (compareList) {
     if (countryOneOrTwo === 'country1') {
       selectedCountry1Element.innerText = userCountry;
-      totalCasesCountry1Element.innerText = totalCasesCount.toLocaleString('sr-RS');
+      totalCasesCountry1Element.innerText =
+        totalCasesCount.toLocaleString('sr-RS');
       newCasesCountry1Element.innerText = `+${newConfirmedCasesCount.toLocaleString(
         'sr-RS'
       )}`;
@@ -335,9 +331,10 @@ const updateStats = (compareList, countryOneOrTwo) => {
       newDeathCasesCountry1Element.innerText = `+${newDeathsCasesCount.toLocaleString(
         'sr-RS'
       )}`;
-    } else if (countryOneOrTwo === 'country2')  {
+    } else if (countryOneOrTwo === 'country2') {
       selectedCountry2Element.innerText = userCountry;
-      totalCasesCountry2Element.innerText = totalCasesCount.toLocaleString('sr-RS');
+      totalCasesCountry2Element.innerText =
+        totalCasesCount.toLocaleString('sr-RS');
       newCasesCountry2Element.innerText = `+${newConfirmedCasesCount.toLocaleString(
         'sr-RS'
       )}`;
@@ -347,8 +344,6 @@ const updateStats = (compareList, countryOneOrTwo) => {
         'sr-RS'
       )}`;
     }
-
-
   }
 
   // if user is auth //
@@ -464,9 +459,8 @@ function formatDate(dateString) {
 const showSummaryButton = document.body.children[3].children[1];
 
 showSummaryButton.addEventListener('click', function () {
-  table.classList.toggle('hide')
-})
-
+  table.classList.toggle('hide');
+});
 
 fetch('https://covid-api.mmediagroup.fr/v1/cases', options)
   .then((response) =>
@@ -494,33 +488,30 @@ fetch('https://covid-api.mmediagroup.fr/v1/cases', options)
 
         // check if target is available to avoid displaying undefined
         if (countries_stat[i][1].All.population) {
-          population.innerHTML = countries_stat[i][1].All.population; 
+          population.innerHTML = countries_stat[i][1].All.population;
         } else {
           population.innerHTML = '0'; // !
         }
         if (countries_stat[i][1].All.updated) {
           updated.innerHTML = countries_stat[i][1].All.updated;
         } else {
-          updated.innerHTML = '0'
+          updated.innerHTML = '0';
         }
-
       }
     })
-    )
+  )
   .catch((err) => {
     console.log(err);
   });
 
-
-
 //// Table sorting // tablesort.min.js
-document.querySelector('#countries-stats').tsortable()
+document.querySelector('#countries-stats').tsortable();
 // https://github.com/oleksavyshnivsky/tablesort
 
 // ----------------- BACK TO TOP BUTTON ------------ ////////////
 
 const showOnPx = 100;
-const backToTopButton = document.querySelector(".back-to-top");
+const backToTopButton = document.querySelector('.back-to-top');
 
 const scrollContainer = () => {
   return document.documentElement || document.body;
@@ -528,21 +519,19 @@ const scrollContainer = () => {
 
 const goToTop = () => {
   document.body.scrollIntoView({
-    behavior: "smooth"
+    behavior: 'smooth',
   });
 };
 
-document.addEventListener("scroll", () => {
+document.addEventListener('scroll', () => {
   // console.log("Scroll Height: ", scrollContainer().scrollHeight);
   // console.log("Client Height: ", scrollContainer().clientHeight);
 
   if (scrollContainer().scrollTop > showOnPx) {
-    backToTopButton.classList.remove("hidden");
+    backToTopButton.classList.remove('hidden');
   } else {
-    backToTopButton.classList.add("hidden");
+    backToTopButton.classList.add('hidden');
   }
 });
 
-backToTopButton.addEventListener("click", goToTop);
-
-
+backToTopButton.addEventListener('click', goToTop);
