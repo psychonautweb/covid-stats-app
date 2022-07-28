@@ -52,13 +52,11 @@ const tbody = document.getElementById('tbody');
 //select canvas for chartJS
 const ctx = document.getElementById('axes_line_chart').getContext('2d');
 
-//////////////////////////////////
-
 // Global Variables /////////////
 
 let casesList = [];
 let globalTotalCases = [];
-let globalTotalDeaths = []; // new
+let globalTotalDeaths = [];
 
 let globalNewCasesConfirmed = [];
 let globalNewDeathsConfirmed = [];
@@ -127,7 +125,6 @@ const showCountryCode = (position) => {
       }
 
       fetchData(userCountryFull, userCountryAbb);
-      //////////
     });
 };
 
@@ -167,7 +164,6 @@ const fetchDataOnLoad = (country) => {
         .then((data) => {
           globalNewCasesConfirmed.push(data.Global.NewConfirmed);
           globalTotalCases.push(data.Global.TotalConfirmed);
-          console.log(globalTotalCases + ' !!!!!!!!!');
           globalNewDeathsConfirmed.push(data.Global.NewDeaths);
           globalTotalDeaths.push(data.Global.TotalDeaths);
           dateOfData = data.Date;
@@ -277,8 +273,6 @@ const updateStats = (compareList, countryOneOrTwo) => {
     dateFormat,
     globalPopulationCount;
 
-  console.log(compareList);
-
   if (userCountry !== 'Global') {
     totalCasesCount = casesList[casesList.length - 1];
     newConfirmedCasesCount = totalCasesCount - casesList[casesList.length - 2];
@@ -300,8 +294,6 @@ const updateStats = (compareList, countryOneOrTwo) => {
   //
 
   countryNameElement.innerHTML = userCountry;
-
-  console.log(totalCasesCount + ' !!!! ');
 
   totalCasesElement.innerHTML = totalCasesCount.toLocaleString('sr-RS');
   newTotalCasesElement.innerHTML = `+${newConfirmedCasesCount.toLocaleString(
@@ -465,14 +457,8 @@ showSummaryButton.addEventListener('click', function () {
 fetch('https://covid-api.mmediagroup.fr/v1/cases', options)
   .then((response) =>
     response.json().then((data) => {
-      console.log(data);
       let countries_stat = Object.entries(data);
-      console.log(countries_stat);
       //Getting all the country statistic using a loop
-
-      // data.COUNTRYi.All.something how to access target??
-
-      console.log(countries_stat[0][1].All);
 
       for (let i = 0; i < countries_stat.length; i++) {
         //we will start by inserting the new rows inside our table
